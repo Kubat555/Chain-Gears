@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class ChainController : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Node")){
-            transform.position = other.transform.position;
-        }
+    
+    // [SerializeField] GameObject chain;
+    // [SerializeField] bool isHead = false;
+    // static ChainController activeChain;
+
+    
+    private void Start() {
+        
+    }
+    
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, Chain.instance.radiusForSpawn);
     }
 }

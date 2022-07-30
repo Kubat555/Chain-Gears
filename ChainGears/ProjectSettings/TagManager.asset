@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Node
+  - Chain
+  - HeadOfChain
   layers:
   - Default
   - TransparentFX

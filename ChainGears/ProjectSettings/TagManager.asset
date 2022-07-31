@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Node
   - Chain
-  - HeadOfChain
+  - Gear
+  - BeginningOfChain
   layers:
   - Default
   - TransparentFX

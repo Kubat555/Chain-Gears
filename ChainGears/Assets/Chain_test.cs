@@ -24,7 +24,11 @@ public class Chain_test : MonoBehaviour
         if(collision.transform.tag == "BeginningOfChain")
         {
             print("CHAINCOLLISION");
-            GlobalEventManager.OnWinGame.Invoke();
+            GlobalEventManager.OnEndDrawing.Invoke();
+        }
+        if(collision.transform.tag == "Chain")
+        {
+            GameManager.isTwisted = true;
         }
     }
 

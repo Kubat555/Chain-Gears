@@ -28,7 +28,7 @@ public class Chain_test : MonoBehaviour
         if(gameObject.tag == collision.transform.tag )
         {
             print(collision.transform.tag);
-            GameManager.isTwisted = true;
+            GameManager.isTwisted = true; 
         }
     }
 
@@ -44,6 +44,8 @@ public class Chain_test : MonoBehaviour
         }
         if (gameObject.tag == collision.transform.tag)
         {
+            ChainManager.twistedCount--;
+            //if (ChainManager.twistedCount<=0)
             GameManager.isTwisted = false;
         }
     }

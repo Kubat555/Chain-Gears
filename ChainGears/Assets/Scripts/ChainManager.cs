@@ -17,6 +17,7 @@ public class ChainManager : MonoBehaviour
     private Vector3 _currentTouchPos;
     private List<GameObject> _chainsList = new List<GameObject>();
 
+    public static int twistedCount;
     
     public static List<Transform> chainParentList = new List<Transform>();
     public static bool isCollision;
@@ -57,7 +58,7 @@ public class ChainManager : MonoBehaviour
             }
            else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33)
             {
-                if (raycastHit.collider.tag != "Chain"&& raycastHit.collider.tag != "Gear")
+                if (raycastHit.collider.tag != "Chain"  && !GameManager.isTwisted)
                 {
                     _firstTouchPos = touchPosition;
                     _lastChain = _chainsList[_chainsList.Count - 1];
@@ -99,6 +100,7 @@ public class ChainManager : MonoBehaviour
             print("WIN "+ GameManager.isWin);
             print("TWISTED "+ GameManager.isTwisted);
             print("Collisison  "+ isCollision);
+            print("Twisted count   "+ twistedCount);
            /* for (int i = 0; i < _chainsList.Count-1; i++)
             {
                 

@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject inGamePanel;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject winParticles;
+
     public static bool isWin;
     public static bool isTwisted;
+    public static bool isGame;
 
     private void Start()
     {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
         isWin = false;
         isTwisted = false;
+        isGame = false;
         ChainManager.isCollision = false;
     }
 
@@ -39,13 +42,10 @@ public class GameManager : MonoBehaviour
     private void WinGame()
     {
         isWin = true;
+        isGame = false;
+
         StartCoroutine(TimerForWin());
         HideInGamePanel();
-    }
-
-    public void StartGame()
-    {
-        mainMenuPanel.SetActive(false);
     }
 
     private void LoseGame()
@@ -55,11 +55,22 @@ public class GameManager : MonoBehaviour
             .SetEase(Ease.OutBounce);
 
         HideInGamePanel();
+
+        isGame = false;
     }
 
-   public void ReloadScene()
+
+    public void StartGame()
     {
-       
+        mainMenuPanel.transform.DOScale(new Vector3(0, 0, 0), 0.5f)
+            .SetEase(Ease.OutCubic);
+
+        StartCoroutine(TimerForGame());
+    }
+
+    public void ReloadScene()
+    {
+        StartCoroutine(TimerForGame());
         ChainManager.chainParentList.Clear();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -70,6 +81,7 @@ public class GameManager : MonoBehaviour
             .SetEase(Ease.OutCubic);
     }
 
+    #region  Œ–”“»Õ€
     IEnumerator TimerForWin()
     {
         yield return new WaitForSeconds(1);
@@ -77,6 +89,13 @@ public class GameManager : MonoBehaviour
         Instantiate(winParticles);
         winPanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
             .SetEase(Ease.OutCubic)
-            .SetEase(Ease.OutBounce);
+            .SetEase(Ease.OutBounce); 
     }
+
+    IEnumerator TimerForGame()
+    {
+        yield return new WaitForSeconds(1);
+        isGame = true;
+    }
+    #endregion
 }

@@ -35,7 +35,7 @@ public class ChainManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.isWin||!GameManager.isGame)
+        if (GameManager.isWin||!GameManager.inGame)
             return;
         Vector3 touchPosition;
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);

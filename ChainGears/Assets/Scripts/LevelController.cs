@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour
         if(Instance == null){
             Instance = this;
         }
+        currentLevelIndex = 0;
     }
 
     public void StartLevel(int index){

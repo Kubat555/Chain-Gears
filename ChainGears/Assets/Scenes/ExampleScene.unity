@@ -683,6 +683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gear
       objectReference: {fileID: 0}
+    - target: {fileID: 4166099685926186592, guid: 09135f01e22be094798553ee87acc550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1546,6 +1550,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gear (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4166099685926186592, guid: 09135f01e22be094798553ee87acc550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1641,7 +1649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1188949020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1914,7 +1922,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1415581262}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartGame
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3381,6 +3389,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1834426854}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1761002858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4113,6 +4133,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1411924845}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2119818894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4226,6 +4258,10 @@ PrefabInstance:
     - target: {fileID: 4166099685926186592, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_Name
       value: Gear (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166099685926186592, guid: 09135f01e22be094798553ee87acc550, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186602, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_Mesh

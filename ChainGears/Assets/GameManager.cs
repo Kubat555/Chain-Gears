@@ -19,11 +19,14 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
         GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
+        isWin = false;
+        isTwisted = false;
+        ChainManager.isCollision = false;
     }
 
     private void CheckResults()
     {
-        if (isTwisted)
+        if (isTwisted||!ChainManager.isCollision)
         {
             GlobalEventManager.OnLoseGame.Invoke();
         }
@@ -56,8 +59,7 @@ public class GameManager : MonoBehaviour
 
    public void ReloadScene()
     {
-        isWin = false;
-        isTwisted = false;
+       
         ChainManager.chainParentList.Clear();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

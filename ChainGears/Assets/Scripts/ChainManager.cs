@@ -96,7 +96,9 @@ public class ChainManager : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            print(chainParentList.Count);
+            print("WIN "+ GameManager.isWin);
+            print("TWISTED "+ GameManager.isTwisted);
+            print("Collisison  "+ isCollision);
            /* for (int i = 0; i < _chainsList.Count-1; i++)
             {
                 

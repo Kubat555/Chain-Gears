@@ -23,10 +23,11 @@ public class Chain_test : MonoBehaviour
         }
         if(collision.transform.tag == "BeginningOfChain")
         {
-            GameManager.isWin = true;
+            ChainManager.isCollision = true;
         }
-        if(collision.transform.tag == "Chain")
+        if(gameObject.tag == collision.transform.tag )
         {
+            print(collision.transform.tag);
             GameManager.isTwisted = true;
         }
     }
@@ -39,9 +40,9 @@ public class Chain_test : MonoBehaviour
         }
         if (collision.transform.tag == "BeginningOfChain")
         {
-            GameManager.isWin = false;
+            ChainManager.isCollision = false;
         }
-        if (collision.transform.tag == "Chain")
+        if (gameObject.tag == collision.transform.tag)
         {
             GameManager.isTwisted = false;
         }

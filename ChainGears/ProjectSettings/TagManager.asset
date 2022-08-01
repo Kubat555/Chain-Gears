@@ -9,6 +9,7 @@ TagManager:
   - Gear
   - BeginningOfChain
   - Floor
+  - RightWay
   layers:
   - Default
   - TransparentFX

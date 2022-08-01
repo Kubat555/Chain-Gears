@@ -56,15 +56,17 @@ public class Chain_test : MonoBehaviour
         StartCoroutine(DestroyChain());
 
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        GetComponent<HingeJoint>().connectedBody = null;
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+       // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+       Destroy(GetComponent<HingeJoint>());
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), Random.Range(-10, 10), Random.Range(-10, 10)), ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), 0, Random.Range(-10, 10)), ForceMode.Impulse);
         GetComponent<BoxCollider>().enabled = false;
     }
 
     IEnumerator DestroyChain()
     {
         yield return new WaitForSeconds(1);
-       // Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

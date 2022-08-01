@@ -8,6 +8,7 @@ public class ChainManager : MonoBehaviour
 
     [SerializeField] private GameObject _chainPrefab; 
     [SerializeField] public Transform _chainParent; 
+    private Transform _currentParent; 
     private GameObject _chain;
     private GameObject _lastChain;
     private GameObject _firstChain;

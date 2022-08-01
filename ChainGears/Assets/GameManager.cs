@@ -56,7 +56,10 @@ public class GameManager : MonoBehaviour
 
         HideInGamePanel();
 */
-        inGame = false;
+        isWin = false;
+        isTwisted = false; 
+        ChainManager.isCollision = false;
+        inGame = true;
     }
 
 

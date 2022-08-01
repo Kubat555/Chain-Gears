@@ -50,12 +50,12 @@ public class GameManager : MonoBehaviour
 
     private void LoseGame()
     {
-        losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
+        /*losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
             .SetEase(Ease.OutCubic)
             .SetEase(Ease.OutBounce);
 
         HideInGamePanel();
-
+*/
         isGame = false;
     }
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TimerForGame()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.001f);
         isGame = true;
     }
     #endregion

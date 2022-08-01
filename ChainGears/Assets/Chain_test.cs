@@ -8,10 +8,10 @@ public class Chain_test : MonoBehaviour
     private void Start()
     {
         chainManager = FindObjectOfType<ChainManager>();
+        GlobalEventManager.OnLoseGame.AddListener(BreakChain);
     }
     private void OnCollisionEnter(Collision collision)
-    {
-            print("collision");
+    { 
         if(collision.transform.tag == "Gear")
         {
             print("TRUE");
@@ -48,5 +48,23 @@ public class Chain_test : MonoBehaviour
             //if (ChainManager.twistedCount<=0)
             GameManager.isTwisted = false;
         }
+    }
+
+    private void BreakChain()
+    {
+        transform.parent = null;
+        StartCoroutine(DestroyChain());
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GetComponent<HingeJoint>().connectedBody = null;
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), Random.Range(-10, 10), Random.Range(-10, 10)), ForceMode.Impulse);
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
+    IEnumerator DestroyChain()
+    {
+        yield return new WaitForSeconds(1);
+       // Destroy(gameObject);
     }
 }

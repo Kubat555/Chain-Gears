@@ -25,6 +25,7 @@ public class ChainManager : MonoBehaviour
     
     private void Start()
     {
+        _chainsList.Clear();
         chainParentList.Add( _chainParent);
         _mainCamera = Camera.main;
         GlobalEventManager.OnChainInGain.AddListener(ChangeParentChain);
@@ -34,7 +35,7 @@ public class ChainManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.isWin)
+        if (GameManager.isWin||!GameManager.isGame)
             return;
         Vector3 touchPosition;
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);

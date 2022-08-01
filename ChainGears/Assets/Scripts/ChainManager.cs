@@ -57,7 +57,7 @@ public class ChainManager : MonoBehaviour
             }
            else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33)
             {
-                if (raycastHit.collider.tag != "Chain")
+                if (raycastHit.collider.tag != "Chain"&& raycastHit.collider.tag != "Gear")
                 {
                     _firstTouchPos = touchPosition;
                     _lastChain = _chainsList[_chainsList.Count - 1];
@@ -131,6 +131,11 @@ public class ChainManager : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, radiusForSpawn);
         }*/
+        if (Input.GetMouseButtonUp(0))
+        {
+
+            GlobalEventManager.OnEndDrawing.Invoke();
+        }
     }
 
     private void ChangeParentChain()

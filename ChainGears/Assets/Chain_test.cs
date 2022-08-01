@@ -23,8 +23,7 @@ public class Chain_test : MonoBehaviour
         }
         if(collision.transform.tag == "BeginningOfChain")
         {
-            print("CHAINCOLLISION");
-            GlobalEventManager.OnEndDrawing.Invoke();
+            GameManager.isWin = true;
         }
         if(collision.transform.tag == "Chain")
         {
@@ -37,6 +36,14 @@ public class Chain_test : MonoBehaviour
         if (collision.transform.tag == "Gear")
         {
             GetComponent<HingeJoint>().axis = new Vector3(0, 0, 0);
+        }
+        if (collision.transform.tag == "BeginningOfChain")
+        {
+            GameManager.isWin = false;
+        }
+        if (collision.transform.tag == "Chain")
+        {
+            GameManager.isTwisted = false;
         }
     }
 }

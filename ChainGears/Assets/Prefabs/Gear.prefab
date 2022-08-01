@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 4166099685926186602}
   - component: {fileID: 4166099685926186605}
   - component: {fileID: 4166099685926186604}
+  - component: {fileID: 339452463941871056}
   m_Layer: 0
   m_Name: Gear
   m_TagString: Gear
@@ -607,6 +608,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &339452463941871056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4166099685926186592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.03, z: 0.1}
+  m_Center: {x: 0.0020325966, y: 0, z: 0.0005446337}
 --- !u!1 &4166099686278318433
 GameObject:
   m_ObjectHideFlags: 0

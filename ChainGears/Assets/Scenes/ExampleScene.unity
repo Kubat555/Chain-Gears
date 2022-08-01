@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4368417, g: 0.48448437, b: 0.56474036, a: 1}
+  m_IndirectSpecularColor: {r: 0.43684152, g: 0.48448396, b: 0.5647399, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -683,6 +683,10 @@ PrefabInstance:
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166099685926186604, guid: 09135f01e22be094798553ee87acc550, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09135f01e22be094798553ee87acc550, type: 3}
@@ -1528,6 +1532,10 @@ PrefabInstance:
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166099685926186604, guid: 09135f01e22be094798553ee87acc550, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09135f01e22be094798553ee87acc550, type: 3}
@@ -4168,14 +4176,6 @@ PrefabInstance:
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalPosition.x

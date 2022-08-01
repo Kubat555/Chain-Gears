@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject inGamePanel;
+    [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject winParticles;
     public static bool isWin;
     public static bool isTwisted;
@@ -34,11 +36,13 @@ public class GameManager : MonoBehaviour
     private void WinGame()
     {
         isWin = true;
-        Instantiate(winParticles);
-        winPanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
-            .SetEase(Ease.OutCubic)
-            .SetEase(Ease.OutBounce)
-            .SetDelay(1);
+        StartCoroutine(TimerForWin());
+        HideInGamePanel();
+    }
+
+    public void StartGame()
+    {
+        mainMenuPanel.SetActive(false);
     }
 
     private void LoseGame()
@@ -46,6 +50,8 @@ public class GameManager : MonoBehaviour
         losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
             .SetEase(Ease.OutCubic)
             .SetEase(Ease.OutBounce);
+
+        HideInGamePanel();
     }
 
    public void ReloadScene()
@@ -54,5 +60,21 @@ public class GameManager : MonoBehaviour
         isTwisted = false;
         ChainManager.chainParentList.Clear();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void HideInGamePanel()
+    {
+        inGamePanel.transform.DOScale(new Vector3(0, 0, 0), 0.5f)
+            .SetEase(Ease.OutCubic);
+    }
+
+    IEnumerator TimerForWin()
+    {
+        yield return new WaitForSeconds(1);
+
+        Instantiate(winParticles);
+        winPanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
+            .SetEase(Ease.OutCubic)
+            .SetEase(Ease.OutBounce);
     }
 }

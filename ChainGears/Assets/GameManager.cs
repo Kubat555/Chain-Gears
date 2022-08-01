@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         ChainManager.isCollision = false;
     }
 
+
     private void CheckResults()
     {
         if (isTwisted||!ChainManager.isCollision)
@@ -100,4 +101,8 @@ public class GameManager : MonoBehaviour
         inGame = true;
     }
     #endregion
+
+    public void StartRotate(){
+        GlobalEventManager.RotateStart.Invoke();
+    }
 }

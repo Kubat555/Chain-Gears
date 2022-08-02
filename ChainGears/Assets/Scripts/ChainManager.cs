@@ -23,13 +23,14 @@ public class ChainManager : MonoBehaviour
     public static List<Transform> chainParentList = new List<Transform>();
     public static bool isCollision;
 
-    
+    public List<GameObject> gearList = new List<GameObject>();
     private void Start()
     {
         _chainsList.Clear();
         _currentParent = _chainParent;
         
-        _mainCamera = Camera.main; 
+        _mainCamera = Camera.main;
+        gearList.Clear();
     }
 
     
@@ -41,9 +42,8 @@ public class ChainManager : MonoBehaviour
             return;
 
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
-        {
-            print("TOUCH");
+        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject() && !isCollision)
+        { 
             touchPosition = raycastHit.point;
             touchPosition.y = 0.6f; 
             _currentTouchPos = touchPosition;
@@ -72,8 +72,13 @@ public class ChainManager : MonoBehaviour
 
             GlobalEventManager.OnEndDrawing.Invoke();
             _chainsList.Clear();
-            _chainParent= _currentParent;
+            _chainParent = _currentParent;
             chainParentList.Clear();
+
+        }
+        if (Input.GetKey (KeyCode.A))
+        {
+            print("GEAr COUNT " + gearList.Count) ;
         }
     }
 
@@ -128,6 +133,9 @@ public class ChainManager : MonoBehaviour
         Destroy(_firstChain);
         GameManager.isWin = false;
         isCollision = false;
-        
+        _chainsList.Clear();
+        _chainParent = _currentParent;
+        chainParentList.Clear();
+        gearList.Clear();
     }
 }

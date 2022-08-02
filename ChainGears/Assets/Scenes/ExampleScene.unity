@@ -3893,7 +3893,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 204861041}
   m_OnClick:
     m_PersistentCalls:
@@ -13761,7 +13761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 630199.25, y: 0.0009765625}
+  m_AnchoredPosition: {x: 634053.1, y: 0.0009765625}
   m_SizeDelta: {x: 1402.1375, y: 0.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765548228
@@ -15155,7 +15155,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 830682566}
   m_OnClick:
     m_PersistentCalls:
@@ -15488,7 +15488,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 845688500}
   m_OnClick:
     m_PersistentCalls:
@@ -18605,7 +18605,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1040544534}
   m_OnClick:
     m_PersistentCalls:
@@ -31253,7 +31253,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1862216005}
   m_OnClick:
     m_PersistentCalls:

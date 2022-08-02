@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
     public void CheckResults()
     { 
-       if (isTwisted)
+       if (isTwisted|| chainManager.gearList.Count<=0)
            GlobalEventManager.OnChainBreaks.Invoke();
        else
            GlobalEventManager.OnWinGame.Invoke(); 
@@ -63,10 +63,10 @@ public class GameManager : MonoBehaviour
 
     private void LoseGame()
     {
-        /*
-        ShowPanel(losePanel, 1.4f, "bounce"); 
+
+        ShowPanel(losePanel, 1.4f, "bounce");
         HidePanel(inGamePanel, 0.3f);
-        */
+
 
         isWin = false;
         isTwisted = false; 
@@ -90,12 +90,16 @@ public class GameManager : MonoBehaviour
 
     public void ReloadScene()
     {
+        attempts = 3;
+        attemptsText.text = "ATTEMPTS: " + attempts.ToString();
         StartCoroutine(TimerForGame());
         chainManager.DestroyAll();
         ChainManager.chainParentList.Clear();
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
         ShowPanel(inGamePanel, 1f, "bounce");
+
+        chainManager.DestroyAll();
     }
 
     public void StartRotate()
@@ -127,6 +131,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.001f);
         inGame = true;
+    }
+    IEnumerator TimerStopRotateGears()
+    {
+        yield return new WaitForSeconds(1f);
+        GlobalEventManager.OnRotateStop.Invoke();
     }
     #endregion
 
@@ -166,8 +175,15 @@ public class GameManager : MonoBehaviour
 
     private void ShowConnectChainText()
     {
-        textAnim.SetTrigger("Show");
+        textAnim.SetTrigger("Show"); 
         attempts--;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
+        if (attempts <= 0)
+        {
+            GlobalEventManager.OnLoseGame.Invoke();
+        }
+        StartCoroutine(TimerStopRotateGears());
     }
+
+    
 }

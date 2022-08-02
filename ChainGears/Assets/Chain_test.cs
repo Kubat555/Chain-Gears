@@ -13,8 +13,7 @@ public class Chain_test : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     { 
         if(collision.transform.tag == "Gear")
-        {
-            print("TRUE"); 
+        { 
             chainManager._chainParent = transform;
             GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0); 
             if(!ChainManager.chainParentList.Contains(this.transform))
@@ -28,9 +27,9 @@ public class Chain_test : MonoBehaviour
         {
             chainManager.gearList.Add(collision.gameObject);
         }
-        if(gameObject.tag == collision.transform.tag )
+        if(gameObject.tag == collision.transform.tag && !ChainManager.twistedChainList.Contains(collision.gameObject) )
         {
-            print(collision.transform.tag);
+            ChainManager.twistedChainList.Add(collision.gameObject); 
             GameManager.isTwisted = true; 
         }
     }
@@ -49,11 +48,11 @@ public class Chain_test : MonoBehaviour
         {
             chainManager.gearList.Remove(collision.gameObject);
         }
-        if (gameObject.tag == collision.transform.tag)
+        if (gameObject.tag == collision.transform.tag &&  ChainManager.twistedChainList.Contains(collision.gameObject))
         {
-            ChainManager.twistedCount--;
-            //if (ChainManager.twistedCount<=0)
-            GameManager.isTwisted = false;
+            ChainManager.twistedChainList.Remove(collision.gameObject);
+            if (ChainManager.twistedChainList.Count <= 0)
+                GameManager.isTwisted = false;
         }
     }
 

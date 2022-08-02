@@ -24,6 +24,10 @@ public class Chain_test : MonoBehaviour
         {
             ChainManager.isCollision = true;
         }
+        if(collision.transform.tag == "RightWay" /*&& !chainManager.gearList.Contains(collision.gameObject)*/)
+        {
+            chainManager.gearList.Add(collision.gameObject);
+        }
         if(gameObject.tag == collision.transform.tag )
         {
             print(collision.transform.tag);
@@ -40,6 +44,10 @@ public class Chain_test : MonoBehaviour
         if (collision.transform.tag == "BeginningOfChain")
         {
             ChainManager.isCollision = false;
+        }
+        if (collision.transform.tag == "RightWay" /*&& chainManager.gearList.Contains(collision.gameObject)*/)
+        {
+            chainManager.gearList.Remove(collision.gameObject);
         }
         if (gameObject.tag == collision.transform.tag)
         {
@@ -63,6 +71,7 @@ public class Chain_test : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
        GameManager.isTwisted = false;
         ChainManager.isCollision = false;
+       chainManager.gearList.Clear();
     }
 
     IEnumerator DestroyChain()

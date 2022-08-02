@@ -15,13 +15,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseIcon;
     [SerializeField] private GameObject resumeIcon;
     [SerializeField] private GameObject settingsPanel;
-    [SerializeField] private GameObject splineChain;
 
     [SerializeField] private GameObject winParticles;
 
     [SerializeField] private Animator textAnim;
 
     [SerializeField] private TextMeshProUGUI attemptsText;
+    [SerializeField] private List<GameObject> splineChain;
+
     [HideInInspector] public int attempts = 3;
 
     public static bool isWin;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     ChainManager chainManager;
     private void Start()
     {
+        Application.targetFrameRate = 120;
         chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
-        splineChain.SetActive(true);
+        splineChain[LevelController.currentLevelIndex].SetActive(true);
 
         chainManager.DestroyAll();
         isWin = true;
@@ -104,7 +106,7 @@ public class GameManager : MonoBehaviour
         ChainManager.chainParentList.Clear();
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
-        splineChain.SetActive(false);
+        splineChain[LevelController.currentLevelIndex].SetActive(false);
         HidePanel(settingsPanel, 0.8f, 0f);
         ShowPanel(inGamePanel, 1f, 1f, "bounce");
         HidePanel(resumeIcon, 0.5f, 0f);

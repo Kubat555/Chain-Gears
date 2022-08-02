@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject inGamePanel;
+    [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject winParticles;
 
@@ -26,7 +27,6 @@ public class GameManager : MonoBehaviour
         inGame = false;
         ChainManager.isCollision = false;
     }
-
 
     private void CheckResults()
     {
@@ -46,17 +46,16 @@ public class GameManager : MonoBehaviour
         inGame = false;
 
         StartCoroutine(TimerForWin());
-        HideInGamePanel();
+        HidePanel(inGamePanel, 0.5f);
     }
 
     private void LoseGame()
     {
-        /*losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
-            .SetEase(Ease.OutCubic)
-            .SetEase(Ease.OutBounce);
+        /*
+        ShowPanel(losePanel, 1.4f, "bounce"); 
+        HidePanel(inGamePanel, 0.3f);
+        */
 
-        HideInGamePanel();
-*/
         isWin = false;
         isTwisted = false; 
         ChainManager.isCollision = false;
@@ -66,8 +65,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(int level)
     {
-        mainMenuPanel.transform.DOScale(new Vector3(0, 0, 0), 0.5f)
-            .SetEase(Ease.OutCubic);
+        HidePanel(levelSelectPanel, 0.5f);
+        ShowPanel(inGamePanel, 0.8f, "bounce");
 
         StartCoroutine(TimerForGame());
 
@@ -77,25 +76,35 @@ public class GameManager : MonoBehaviour
     public void ReloadScene()
     {
         StartCoroutine(TimerForGame());
+
         ChainManager.chainParentList.Clear();
+
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
     }
 
-    private void HideInGamePanel()
+    public void StartRotate()
     {
-        inGamePanel.transform.DOScale(new Vector3(0, 0, 0), 0.5f)
-            .SetEase(Ease.OutCubic);
+        GlobalEventManager.RotateStart.Invoke();
     }
 
-    #region ��������
+    public void FromMainMenuToLevelSelect()
+    {
+        HidePanel(mainMenuPanel, 0.5f);
+        ShowPanel(levelSelectPanel, 0.8f);
+    }
+
+    public void FromLevelSelectToMainmenu()
+    {
+        HidePanel(levelSelectPanel, 0.5f);
+        ShowPanel(mainMenuPanel, 0.8f);
+    }
+
+    #region Coroutines
     IEnumerator TimerForWin()
     {
         yield return new WaitForSeconds(1);
-
         Instantiate(winParticles);
-        winPanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
-            .SetEase(Ease.OutCubic)
-            .SetEase(Ease.OutBounce); 
+        ShowPanel(winPanel, 1.4f, "bounce"); 
     }
 
     IEnumerator TimerForGame()
@@ -105,7 +114,33 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void StartRotate(){
-        GlobalEventManager.RotateStart.Invoke();
+
+    #region ShowANDHidePanels 
+    //МЕТОДЫ ДЛЯ СКРЫТИЯ И ПОЯВЛЕНИЯ ПАНЕЛЕЙ
+    private void HidePanel(GameObject panel, float time)
+    {
+        panel.transform.DOScale(new Vector3(0, 0, 0), time)
+             .SetEase(Ease.OutCubic);
     }
+
+    private void HidePanel(GameObject panel, float time, string bounce)
+    {
+        panel.transform.DOScale(new Vector3(0, 0, 0), time)
+             .SetEase(Ease.OutCubic)
+             .SetEase(Ease.OutBounce);
+    }
+
+    private void ShowPanel(GameObject panel, float time)
+    {
+        panel.transform.DOScale(new Vector3(1, 1, 1), time)
+             .SetEase(Ease.OutCubic);
+    }
+
+    private void ShowPanel(GameObject panel, float time, string bounce)
+    {
+        panel.transform.DOScale(new Vector3(1, 1, 1), time)
+             .SetEase(Ease.OutCubic)
+             .SetEase(Ease.OutBounce);
+    }
+    #endregion
 }

@@ -9,4 +9,8 @@ public class GlobalEventManager : MonoBehaviour
     public static UnityEvent OnEndDrawing = new UnityEvent();
     public static UnityEvent OnWinGame = new UnityEvent();
     public static UnityEvent OnLoseGame = new UnityEvent();
+    public static UnityEvent RotateStart = new UnityEvent();
+    public static UnityEvent RotateStop = new UnityEvent();
+
+
 }

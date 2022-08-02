@@ -8,10 +8,10 @@ public class Chain_test : MonoBehaviour
     private void Start()
     {
         chainManager = FindObjectOfType<ChainManager>();
+        GlobalEventManager.OnLoseGame.AddListener(BreakChain);
     }
     private void OnCollisionEnter(Collision collision)
-    {
-            print("collision");
+    { 
         if(collision.transform.tag == "Gear")
         {
             print("TRUE");
@@ -28,7 +28,7 @@ public class Chain_test : MonoBehaviour
         if(gameObject.tag == collision.transform.tag )
         {
             print(collision.transform.tag);
-            GameManager.isTwisted = true;
+            GameManager.isTwisted = true; 
         }
     }
 
@@ -44,7 +44,29 @@ public class Chain_test : MonoBehaviour
         }
         if (gameObject.tag == collision.transform.tag)
         {
+            ChainManager.twistedCount--;
+            //if (ChainManager.twistedCount<=0)
             GameManager.isTwisted = false;
         }
+    }
+
+    private void BreakChain()
+    {
+        transform.parent = null;
+        StartCoroutine(DestroyChain());
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+       // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+       Destroy(GetComponent<HingeJoint>());
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), 0, Random.Range(-10, 10)), ForceMode.Impulse);
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
+    IEnumerator DestroyChain()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

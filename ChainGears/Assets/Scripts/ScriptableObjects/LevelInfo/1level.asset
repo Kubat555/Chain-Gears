@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752d8f5406e754b4090679addfb617bf, type: 3}
+  m_Name: 1level
+  m_EditorClassIdentifier: 
+  gearsPositions:
+  - {x: 0.873, y: 0.6, z: 1.314}
+  - {x: -2.01, y: 0.6, z: -1.21}
+  - {x: 0.999, y: 0.6, z: -1.066}
+  gearsScale:
+  - {x: 5, y: 2.83, z: 5}
+  - {x: 4, y: 2.83, z: 4}
+  - {x: 3, y: 2.83, z: 3}
+  gearsDirection: 010000000100000001000000

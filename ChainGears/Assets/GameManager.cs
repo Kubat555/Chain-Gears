@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public static bool isWin;
     public static bool isTwisted;
-    public static bool isGame;
+    public static bool inGame;
 
     private void Start()
     {
@@ -23,9 +23,10 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
         isWin = false;
         isTwisted = false;
-        isGame = false;
+        inGame = false;
         ChainManager.isCollision = false;
     }
+
 
     private void CheckResults()
     {
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     private void WinGame()
     {
         isWin = true;
-        isGame = false;
+        inGame = false;
 
         StartCoroutine(TimerForWin());
         HideInGamePanel();
@@ -50,29 +51,34 @@ public class GameManager : MonoBehaviour
 
     private void LoseGame()
     {
-        losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
+        /*losePanel.transform.DOScale(new Vector3(1, 1, 1), 1.4f)
             .SetEase(Ease.OutCubic)
             .SetEase(Ease.OutBounce);
 
         HideInGamePanel();
-
-        isGame = false;
+*/
+        isWin = false;
+        isTwisted = false; 
+        ChainManager.isCollision = false;
+        inGame = true;
     }
 
 
-    public void StartGame()
+    public void StartGame(int level)
     {
         mainMenuPanel.transform.DOScale(new Vector3(0, 0, 0), 0.5f)
             .SetEase(Ease.OutCubic);
 
         StartCoroutine(TimerForGame());
+
+        LevelController.Instance.StartLevel(level);
     }
 
     public void ReloadScene()
     {
         StartCoroutine(TimerForGame());
         ChainManager.chainParentList.Clear();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
     }
 
     private void HideInGamePanel()
@@ -81,7 +87,7 @@ public class GameManager : MonoBehaviour
             .SetEase(Ease.OutCubic);
     }
 
-    #region ÊÎÐÓÒÈÍÛ
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     IEnumerator TimerForWin()
     {
         yield return new WaitForSeconds(1);
@@ -94,8 +100,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TimerForGame()
     {
-        yield return new WaitForSeconds(1);
-        isGame = true;
+        yield return new WaitForSeconds(0.001f);
+        inGame = true;
     }
     #endregion
+
+    public void StartRotate(){
+        GlobalEventManager.RotateStart.Invoke();
+    }
 }

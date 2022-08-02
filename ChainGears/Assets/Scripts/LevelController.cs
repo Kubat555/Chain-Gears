@@ -30,6 +30,7 @@ public class LevelController : MonoBehaviour
 
         for(int i = 0; i < levelsInfo[index].gearsPositions.Count; i++){
             gears[i].transform.position = levelsInfo[index].gearsPositions[i];
+            gears[i].transform.rotation = Quaternion.Euler( levelsInfo[index].gearsRotation[i]);
             gears[i].transform.localScale = levelsInfo[index].gearsScale[i];
             gears[i].GetComponent<GearScript>().direction = levelsInfo[index].gearsDirection[i];
             gears[i].SetActive(true);

@@ -23,7 +23,7 @@ public class Chain_test : MonoBehaviour
         {
             ChainManager.isCollision = true;
         }
-        if(collision.transform.tag == "RightWay" /*&& !chainManager.gearList.Contains(collision.gameObject)*/)
+        if(collision.transform.tag == "RightWay" && !chainManager.gearList.Contains(collision.gameObject))
         {
             chainManager.gearList.Add(collision.gameObject);
         }

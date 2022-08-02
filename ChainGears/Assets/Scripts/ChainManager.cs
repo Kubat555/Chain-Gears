@@ -38,6 +38,7 @@ public class ChainManager : MonoBehaviour
         Vector3 touchPosition;
     private void Update()
     {
+        print(GameManager.inGame);
         if (GameManager.isWin||!GameManager.inGame  )
             return;
 
@@ -50,12 +51,12 @@ public class ChainManager : MonoBehaviour
             _chainParent = _chainParent == null ? _chain.transform : _chainParent;
             _chainParent.transform.LookAt(touchPosition); 
 
-            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="Floor" && _chainsList.Count < 1 /*&& !EventSystem.current.IsPointerOverGameObject()*/)
+            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="StartZone" && _chainsList.Count < 1 /*&& !EventSystem.current.IsPointerOverGameObject()*/)
             {
                 StartDrawing();
                 
             }
-           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33)
+           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33 && _chainsList.Count > 0)
             {
                 Drawing(raycastHit); 
             }
@@ -67,7 +68,7 @@ public class ChainManager : MonoBehaviour
             RemoveParent();
         }
         
-        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()&& _chainsList.Count > 0)
         {
 
             GlobalEventManager.OnEndDrawing.Invoke();

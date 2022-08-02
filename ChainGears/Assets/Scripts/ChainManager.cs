@@ -59,6 +59,7 @@ public class ChainManager : MonoBehaviour
            else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33 && _chainsList.Count > 0)
             {
                 Drawing(raycastHit); 
+                GameManager.Instance.rotateButton.interactable = true;
             }
 
         }
@@ -93,6 +94,7 @@ public class ChainManager : MonoBehaviour
         _firstChain = _chain;
         _chain.tag = "BeginningOfChain"; 
         _chainsList.Add(_chain);
+        
     }
 
     private void Drawing(RaycastHit raycastHit)

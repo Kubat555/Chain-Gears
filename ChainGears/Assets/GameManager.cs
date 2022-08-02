@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
@@ -19,16 +20,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winParticles;
 
     [SerializeField] private Animator textAnim;
-
     [SerializeField] private TextMeshProUGUI attemptsText;
     [SerializeField] private List<GameObject> splineChain;
 
     [HideInInspector] public int attempts = 3;
 
+    public Button rotateButton;
     public static bool isWin;
     public static bool isTwisted;
     public static bool inGame;
+
+    public static GameManager Instance;
     ChainManager chainManager;
+
+    private void Awake() {
+        if(Instance == null){
+            Instance = this;
+        }
+    }
     private void Start()
     {
         Application.targetFrameRate = 120;
@@ -41,6 +50,7 @@ public class GameManager : MonoBehaviour
         isTwisted = false;
         inGame = false;
         ChainManager.isCollision = false;
+        rotateButton.interactable = false;
     }
 
     [ContextMenu("Rotate")]
@@ -50,11 +60,15 @@ public class GameManager : MonoBehaviour
         {
             GlobalEventManager.OnChainBreaks.Invoke();
         }
+        
     }
     public void CheckResults()
     {
         if (isTwisted || chainManager.gearList.Count < 3)
+        {
             GlobalEventManager.OnChainBreaks.Invoke();
+            rotateButton.interactable = false;
+        }
         else
             GlobalEventManager.OnWinGame.Invoke();
     }
@@ -96,6 +110,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TimerForGame());
 
         LevelController.Instance.StartLevel(level);
+        rotateButton.interactable = false;
     }
 
     public void ReloadScene()
@@ -113,6 +128,7 @@ public class GameManager : MonoBehaviour
         ShowPanel(pauseIcon, 0.8f, 0.5f);
         inGame = true;
         chainManager.DestroyAll();
+        rotateButton.interactable = false;
     }
 
     public void StartRotate()

@@ -71,6 +71,7 @@ public class Chain_test : MonoBehaviour
        GameManager.isTwisted = false;
         ChainManager.isCollision = false;
        chainManager.gearList.Clear();
+        GameManager.Instance.rotateButton.interactable = false;
     }
 
     IEnumerator DestroyChain()

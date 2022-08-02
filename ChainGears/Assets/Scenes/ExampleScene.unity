@@ -1703,7 +1703,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1415581262}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ReloadScene
+        m_MethodName: GoToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7805,7 +7805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 531103.9, y: 0.0009765625}
+  m_AnchoredPosition: {x: 535854, y: 0.0009765625}
   m_SizeDelta: {x: 1402.1375, y: 0.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765548228
@@ -11912,7 +11912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: -1}
-  speed: 3
+  speed: 100
 --- !u!114 &1089952403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12681,7 +12681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1188949020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13451,7 +13451,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1415581262}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ReloadScene
+        m_MethodName: ControlSettingsPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14579,6 +14579,9 @@ MonoBehaviour:
   inGamePanel: {fileID: 1984110292}
   levelSelectPanel: {fileID: 1866150360}
   mainMenuPanel: {fileID: 1188949019}
+  pauseIcon: {fileID: 515884232}
+  resumeIcon: {fileID: 221929231}
+  settingsPanel: {fileID: 2085471371}
   winParticles: {fileID: 6087913098354899596, guid: 6aa819e62a8c1704bba7727e45a23f77, type: 3}
   textAnim: {fileID: 242404930}
   attemptsText: {fileID: 922884304}
@@ -14892,7 +14895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: -1}
-  speed: 1
+  speed: 100
 --- !u!4 &1458650036 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4141222965266126945, guid: e35bd04c02a937f4798a15d5f6d27e8d, type: 3}
@@ -16383,7 +16386,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1415581262}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ReloadScene
+        m_MethodName: GoToLevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17419,7 +17422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 1}
-  speed: 2
+  speed: 100
 --- !u!114 &1744881289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19522,7 +19525,7 @@ RectTransform:
   m_GameObject: {fileID: 1984110292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1257878325}
@@ -21273,7 +21276,7 @@ RectTransform:
   m_GameObject: {fileID: 2085471371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 178392190}
@@ -21284,7 +21287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: 147}
+  m_AnchoredPosition: {x: 370, y: -90}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2086453703

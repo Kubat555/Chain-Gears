@@ -9,6 +9,6 @@ public class ImageGearsRotator : MonoBehaviour
     [SerializeField] private float speed;
     void Update()
     {
-        gameObject.transform.Rotate(direction, speed);
+        gameObject.transform.Rotate(direction, speed * Time.deltaTime);
     }
 }

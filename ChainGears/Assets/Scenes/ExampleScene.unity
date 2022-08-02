@@ -7765,7 +7765,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 421028451}
   m_OnClick:
     m_PersistentCalls:
@@ -13761,7 +13761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 634053.1, y: 0.0009765625}
+  m_AnchoredPosition: {x: 647168.25, y: 0.0009765625}
   m_SizeDelta: {x: 1402.1375, y: 0.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765548228
@@ -21358,8 +21358,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2717908991
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6313726}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -24470,6 +24470,7 @@ MonoBehaviour:
   - {fileID: 436891594}
   - {fileID: 407129187}
   attempts: 3
+  rotateButton: {fileID: 421028450}
 --- !u!4 &1415581263
 Transform:
   m_ObjectHideFlags: 0
@@ -36033,7 +36034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0841909
+      value: 0.99713254
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalRotation.x
@@ -36041,11 +36042,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9964497
+      value: 0.07567491
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -36053,7 +36054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 189.659
+      value: 8.68
       objectReference: {fileID: 0}
     - target: {fileID: 4166099685926186603, guid: 09135f01e22be094798553ee87acc550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

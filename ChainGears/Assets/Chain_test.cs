@@ -61,6 +61,8 @@ public class Chain_test : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), 0, Random.Range(-10, 10)), ForceMode.Impulse);
         GetComponent<BoxCollider>().enabled = false;
+       GameManager.isTwisted = false;
+        ChainManager.isCollision = false;
     }
 
     IEnumerator DestroyChain()

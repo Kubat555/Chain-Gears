@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 752d8f5406e754b4090679addfb617bf, type: 3}
-  m_Name: 1level
+  m_Name: 2level
   m_EditorClassIdentifier: 
   gearsPositions:
-  - {x: 0.873, y: 0.6, z: 1.314}
-  - {x: -2.01, y: 0.6, z: -1.21}
-  - {x: 0.999, y: 0.6, z: -1.066}
-  gearsRotation: []
+  - {x: -2.4261, y: 0.6, z: -0.7018}
+  - {x: 2.4356, y: 0.6, z: -0.0012}
+  - {x: -0.2, y: 0.6, z: 0.22}
+  gearsRotation:
+  - {x: 0, y: 176.23009, z: 0}
+  - {x: 0, y: 23.769993, z: 0}
+  - {x: 0, y: 89.20655, z: 0}
   gearsScale:
-  - {x: 5, y: 2.83, z: 5}
-  - {x: 4, y: 2.83, z: 4}
-  - {x: 3, y: 2.83, z: 3}
-  gearsDirection: 010000000100000001000000
+  - {x: 5.0955, y: 2.8840528, z: 5.0955}
+  - {x: 6.3380003, y: 3.5873082, z: 6.3380003}
+  - {x: 4.7525, y: 2.689915, z: 4.7525}
+  gearsDirection: 0100000001000000ffffffff

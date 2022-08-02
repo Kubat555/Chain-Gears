@@ -5,7 +5,6 @@ using UnityEngine;
 public class GearScript : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] bool clockwise;
     public int direction;
     Rigidbody rb;
     public static bool isRotate = false;
@@ -26,11 +25,8 @@ public class GearScript : MonoBehaviour
     public void RotateGear(){
         // rb.WakeUp();
         // rb.AddTorque(Vector3.up * direction * speed * Time.deltaTime);
-        if(clockwise)
-            transform.Rotate(Vector3.up * direction * speed * Time.deltaTime);
-        else
-            transform.Rotate(Vector3.down * direction * speed * Time.deltaTime);
 
+        transform.Rotate(Vector3.up * direction * speed * Time.deltaTime);
     }
 
     void StartRotate(){

@@ -10,6 +10,7 @@ TagManager:
   - BeginningOfChain
   - Floor
   - RightWay
+  - StartZone
   layers:
   - Default
   - TransparentFX

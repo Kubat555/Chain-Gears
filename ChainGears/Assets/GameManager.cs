@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject inGamePanel;
     [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject pauseIcon;
+    [SerializeField] private GameObject resumeIcon;
+    [SerializeField] private GameObject settingsPanel;
+
     [SerializeField] private GameObject winParticles;
 
     [SerializeField] private Animator textAnim;
@@ -24,7 +28,7 @@ public class GameManager : MonoBehaviour
     public static bool inGame;
     ChainManager chainManager;
     private void Start()
-    {   
+    {
         chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
@@ -36,20 +40,20 @@ public class GameManager : MonoBehaviour
         ChainManager.isCollision = false;
     }
 
-    [ContextMenu( "Rotate")]
+    [ContextMenu("Rotate")]
     private void CheckConnectedChain()
     {
         if (!ChainManager.isCollision)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
-        } 
+        }
     }
     public void CheckResults()
-    { 
-       if (isTwisted|| chainManager.gearList.Count<3)
-           GlobalEventManager.OnChainBreaks.Invoke();
-       else
-           GlobalEventManager.OnWinGame.Invoke(); 
+    {
+        if (isTwisted || chainManager.gearList.Count < 3)
+            GlobalEventManager.OnChainBreaks.Invoke();
+        else
+            GlobalEventManager.OnWinGame.Invoke();
     }
 
     private void WinGame()
@@ -58,18 +62,18 @@ public class GameManager : MonoBehaviour
         inGame = false;
 
         StartCoroutine(TimerForWin());
-        HidePanel(inGamePanel, 0.5f);
+        HidePanel(inGamePanel, 0f, 0.5f);
     }
 
     private void LoseGame()
     {
 
-        ShowPanel(losePanel, 1.4f, "bounce");
-        HidePanel(inGamePanel, 0.3f);
+        ShowPanel(losePanel, 1.4f, 1f, "bounce");
+        HidePanel(inGamePanel, 0f, 0.3f);
 
 
         isWin = false;
-        isTwisted = false; 
+        isTwisted = false;
         ChainManager.isCollision = false;
         inGame = false;
     }
@@ -80,8 +84,8 @@ public class GameManager : MonoBehaviour
         attempts = 3;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
 
-        HidePanel(levelSelectPanel, 0.5f);
-        ShowPanel(inGamePanel, 0.8f, "bounce");
+        HidePanel(levelSelectPanel, 0.5f, 0f);
+        ShowPanel(inGamePanel, 0.8f, 1f, "bounce");
 
         StartCoroutine(TimerForGame());
 
@@ -97,7 +101,11 @@ public class GameManager : MonoBehaviour
         ChainManager.chainParentList.Clear();
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
-        ShowPanel(inGamePanel, 1f, "bounce");
+
+        HidePanel(settingsPanel, 0.8f, 0f);
+        ShowPanel(inGamePanel, 1f, 1f, "bounce");
+        HidePanel(resumeIcon, 0.5f, 0f);
+        ShowPanel(pauseIcon, 0.8f, 0.5f);
 
         chainManager.DestroyAll();
     }
@@ -109,14 +117,50 @@ public class GameManager : MonoBehaviour
 
     public void FromMainMenuToLevelSelect()
     {
-        HidePanel(mainMenuPanel, 0.5f);
-        ShowPanel(levelSelectPanel, 0.8f);
+        HidePanel(mainMenuPanel, 0.5f, 0f);
+        ShowPanel(levelSelectPanel, 0.8f, 1f);
     }
 
     public void FromLevelSelectToMainmenu()
     {
-        HidePanel(levelSelectPanel, 0.5f);
-        ShowPanel(mainMenuPanel, 0.8f);
+        HidePanel(levelSelectPanel, 0.5f, 0f);
+        ShowPanel(mainMenuPanel, 0.8f, 1f);
+    }
+
+    public void ShowSettingsPanel()
+    {
+        HidePanel(pauseIcon, 0.5f, 0f);
+        ShowPanel(resumeIcon, 0.5f, 0.5f);
+        ShowPanel(settingsPanel, 0.8f, 1f, "bounce");
+        inGame = false;
+    }
+
+    public void HideSettingsPanel()
+    {
+        HidePanel(settingsPanel, 0.8f, 0f);
+        HidePanel(resumeIcon, 0.5f, 0f);
+        ShowPanel(pauseIcon, 0.8f, 0.5f);
+        inGame = true;
+    }
+
+    public void GoToMainMenu()
+    {
+        HidePanel(resumeIcon, 0.5f, 0f);
+        HidePanel(settingsPanel, 0.8f, 0f);
+        HidePanel(inGamePanel, 0.8f, 0f);
+        ShowPanel(pauseIcon, 0.8f, 0.5f);
+
+        ShowPanel(mainMenuPanel, 0.8f, 1f, "bounce");
+    }
+
+    public void GoToLevelSelect()
+    {
+        HidePanel(resumeIcon, 0.5f, 0f);
+        HidePanel(settingsPanel, 0.8f, 0f);
+        HidePanel(inGamePanel, 0.8f, 0f);
+        ShowPanel(pauseIcon, 0.8f, 0.5f);
+
+        ShowPanel(levelSelectPanel, 0.8f, 1f, "bounce");
     }
 
     #region Coroutines
@@ -124,7 +168,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Instantiate(winParticles);
-        ShowPanel(winPanel, 1.4f, "bounce"); 
+        ShowPanel(winPanel, 1.4f, 1, "bounce");
     }
 
     IEnumerator TimerForGame()
@@ -146,28 +190,28 @@ public class GameManager : MonoBehaviour
     {
         panel.transform.localScale = new Vector3(0, 0, 0);
     }
-    private void HidePanel(GameObject panel, float time)
+    private void HidePanel(GameObject panel, float time, float size)
     {
-        panel.transform.DOScale(new Vector3(0, 0, 0), time)
+        panel.transform.DOScale(new Vector3(size, size, 0), time)
              .SetEase(Ease.OutCubic);
     }
 
-    private void HidePanel(GameObject panel, float time, string bounce)
+    private void HidePanel(GameObject panel, float time, float size, string bounce)
     {
-        panel.transform.DOScale(new Vector3(0, 0, 0), time)
+        panel.transform.DOScale(new Vector3(size, size, 0), time)
              .SetEase(Ease.OutCubic)
              .SetEase(Ease.OutBounce);
     }
 
-    private void ShowPanel(GameObject panel, float time)
+    private void ShowPanel(GameObject panel, float time, float size)
     {
-        panel.transform.DOScale(new Vector3(1, 1, 1), time)
+        panel.transform.DOScale(new Vector3(size, size, 1), time)
              .SetEase(Ease.OutCubic);
     }
 
-    private void ShowPanel(GameObject panel, float time, string bounce)
+    private void ShowPanel(GameObject panel, float time, float size, string bounce)
     {
-        panel.transform.DOScale(new Vector3(1, 1, 1), time)
+        panel.transform.DOScale(new Vector3(size, size, 1), time)
              .SetEase(Ease.OutCubic)
              .SetEase(Ease.OutBounce);
     }
@@ -175,7 +219,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowConnectChainText()
     {
-        textAnim.SetTrigger("Show"); 
+        textAnim.SetTrigger("Show");
         attempts--;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
         if (attempts <= 0)
@@ -184,6 +228,4 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(TimerStopRotateGears());
     }
-
-    
 }

@@ -28,96 +28,43 @@ public class ChainManager : MonoBehaviour
     {
         _chainsList.Clear();
         _currentParent = _chainParent;
-        chainParentList.Add(_currentParent);
+        
         _mainCamera = Camera.main;
         GlobalEventManager.OnChainInGain.AddListener(ChangeParentChain);
     }
 
     
 
+        Vector3 touchPosition;
     private void Update()
     {
         if (GameManager.isWin||!GameManager.inGame)
             return;
-        Vector3 touchPosition;
+
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0))
         {
             touchPosition = raycastHit.point;
-            touchPosition.y = 0.6f;
-
-
+            touchPosition.y = 0.6f; 
             _currentTouchPos = touchPosition;
-            if (Input.GetMouseButtonDown(0)&& raycastHit.collider.tag != "Chain"&& _chainsList.Count<1)
+            _chainParent = _chainParent == null ? _chain.transform : _chainParent;
+            _chainParent.transform.LookAt(touchPosition); 
+
+            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="Floor" && _chainsList.Count < 1)
             {
-                _firstTouchPos = touchPosition;
-                _currentParent.position = touchPosition;
-                _currentParent.rotation = Quaternion.identity;
-                _chain = Instantiate(_chainPrefab, _currentParent.position, Quaternion.identity, _currentParent);
-                _chain.tag = "BeginningOfChain";
-                _startChain = _chain;
-                _firstChain = _chain;
-                _chainsList.Add(_chain);
-               // _chain.GetComponent<Rigidbody>().isKinematic = true;
+                StartDrawing();
+                
             }
            else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33)
             {
-                if (raycastHit.collider.tag != "Chain"  && !GameManager.isTwisted)
-                {
-                    _firstTouchPos = touchPosition;
-                    _lastChain = _chainsList[_chainsList.Count - 1];
-                    _chain = Instantiate(_chainPrefab, new Vector3(_lastChain.transform.position.x, _lastChain.transform.position.y, _lastChain.transform.position.z), _lastChain.transform.rotation, _chain.transform);
-                    _chainsList.Add(_chain);
-                    _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.36f);
-                    var joint = _chain.GetComponent<HingeJoint>();
-                    joint.connectedBody = _lastChain.GetComponent<Rigidbody>();
-                }
-                else if (raycastHit.collider.tag == "Chain" && _chainsList.Count > 1)
-                {
-                    Destroy(_chain);
-                    chainParentList.Remove(_chain.transform);
-                    _chainsList.RemoveAt(_chainsList.Count - 1);
-                    _chain = _chainsList[_chainsList.Count - 1]; ;
-                    _firstTouchPos = _chain.transform.position;
-                }
-                
+                Drawing(raycastHit); 
+            }
 
-            }
-            
-            else if(  Vector3.Distance(_firstTouchPos, _currentTouchPos) >= .22)
-            {
-               
-            }
-            /*else if (Vector3.Distance(_firstTouchPos, _currentTouchPos) <= 0)
-            {
-             //   Destroy(_chain);
-            }*/
-            _currentParent = _currentParent == null ? _chain.transform : _currentParent;
-            _currentParent.transform.LookAt(touchPosition);
-            /*else
-            {
-                _chain.transform.localPosition = touchPosition;
-            }*/
         }
-        if (Input.GetKey(KeyCode.D))
+         
+        if (_chainsList.Count >1 && _chainParent.transform.localRotation.y > 0.70 || _chainParent.transform.localRotation.y < -0.70)
         {
-            print("WIN "+ GameManager.isWin);
-            print("TWISTED "+ GameManager.isTwisted);
-            print("Collisison  "+ isCollision);
-            print("Twisted count   "+ twistedCount);
-           
-        }
-        if (_chainsList.Count > 1 && _chainParent.transform.localRotation.y > 0.70 || _chainParent.transform.localRotation.y < -0.70)
-        {
-
-            if (chainParentList.Count > 1)
-            {
-
-                _chainParent.transform.localRotation = Quaternion.identity;
-                chainParentList.Remove(_chainParent);
-                _chainParent = chainParentList[chainParentList.Count - 1].transform;
-                _chainParent.transform.localRotation = Quaternion.identity;
-            }
+            RemoveParent();
         }
         
         if (Input.GetMouseButtonUp(0))
@@ -125,6 +72,55 @@ public class ChainManager : MonoBehaviour
 
             GlobalEventManager.OnEndDrawing.Invoke();
             _chainsList.Clear();
+            _chainParent= _currentParent;
+            chainParentList.Clear();
+        }
+    }
+
+    private void StartDrawing()
+    { 
+        chainParentList.Add(_currentParent);
+        _firstTouchPos = touchPosition;
+        _chainParent.position = touchPosition;
+        _chainParent.rotation = Quaternion.identity;
+        _chain = Instantiate(_chainPrefab, _chainParent.position, Quaternion.identity, _chainParent);
+        _chain.tag = "BeginningOfChain";
+        _startChain = _chain;
+        _firstChain = _chain;
+        _chainsList.Add(_chain);
+    }
+
+    private void Drawing(RaycastHit raycastHit)
+    {
+        if (raycastHit.collider.tag != "Chain")
+        {
+            _firstTouchPos = touchPosition;
+            _lastChain = _chainsList[_chainsList.Count - 1];
+            _chain = Instantiate(_chainPrefab, _lastChain.transform.position, _lastChain.transform.rotation, _chain.transform);
+            _chainsList.Add(_chain);
+            _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.36f);
+            var joint = _chain.GetComponent<HingeJoint>();
+            joint.connectedBody = _lastChain.GetComponent<Rigidbody>();
+        }
+        else if (raycastHit.collider.tag == "Chain" && _chainsList.Count > 1)
+        {
+            Destroy(_chain);
+            chainParentList.Remove(_chain.transform);
+            _chainsList.RemoveAt(_chainsList.Count - 1);
+            _chain = _chainsList[_chainsList.Count - 1]; ;
+            _firstTouchPos = _chain.transform.position;
+        }
+    }
+
+    private void RemoveParent()
+    {
+        if (chainParentList.Count > 1)
+        {
+
+            _chainParent.transform.localRotation = Quaternion.identity;
+            chainParentList.Remove(_chainParent);
+            _chainParent = chainParentList[chainParentList.Count - 1].transform;
+            _chainParent.transform.localRotation = Quaternion.identity;
         }
     }
 

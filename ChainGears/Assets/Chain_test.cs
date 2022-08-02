@@ -8,7 +8,7 @@ public class Chain_test : MonoBehaviour
     private void Start()
     {
         chainManager = FindObjectOfType<ChainManager>();
-        GlobalEventManager.OnLoseGame.AddListener(BreakChain);
+        GlobalEventManager.OnChainBreaks.AddListener(BreakChain);
     }
     private void OnCollisionEnter(Collision collision)
     { 
@@ -16,7 +16,7 @@ public class Chain_test : MonoBehaviour
         {
             print("TRUE");
             GlobalEventManager.OnChainInGain.Invoke();
-            chainManager._currentParent = transform;
+            chainManager._chainParent = transform;
             GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0); 
             if(!ChainManager.chainParentList.Contains(this.transform))
             ChainManager.chainParentList.Add(this.transform);

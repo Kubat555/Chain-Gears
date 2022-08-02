@@ -8,7 +8,7 @@ public class ChainManager : MonoBehaviour
 
     [SerializeField] private GameObject _chainPrefab; 
     [SerializeField] public Transform _chainParent; 
-    private Transform _currentParent; 
+    public Transform _currentParent; 
     private GameObject _chain;
     private GameObject _lastChain;
     private GameObject _firstChain;
@@ -27,7 +27,8 @@ public class ChainManager : MonoBehaviour
     private void Start()
     {
         _chainsList.Clear();
-        chainParentList.Add( _chainParent);
+        _currentParent = _chainParent;
+        chainParentList.Add(_currentParent);
         _mainCamera = Camera.main;
         GlobalEventManager.OnChainInGain.AddListener(ChangeParentChain);
     }
@@ -50,8 +51,9 @@ public class ChainManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0)&& raycastHit.collider.tag != "Chain"&& _chainsList.Count<1)
             {
                 _firstTouchPos = touchPosition;
-                _chainParent.position = touchPosition;
-                _chain = Instantiate(_chainPrefab, _chainParent.position, Quaternion.identity, _chainParent);
+                _currentParent.position = touchPosition;
+                _currentParent.rotation = Quaternion.identity;
+                _chain = Instantiate(_chainPrefab, _currentParent.position, Quaternion.identity, _currentParent);
                 _chain.tag = "BeginningOfChain";
                 _startChain = _chain;
                 _firstChain = _chain;
@@ -90,8 +92,8 @@ public class ChainManager : MonoBehaviour
             {
              //   Destroy(_chain);
             }*/
-            _chainParent = _chainParent == null ? _chain.transform : _chainParent;
-            _chainParent.transform.LookAt(touchPosition);
+            _currentParent = _currentParent == null ? _chain.transform : _currentParent;
+            _currentParent.transform.LookAt(touchPosition);
             /*else
             {
                 _chain.transform.localPosition = touchPosition;
@@ -103,44 +105,26 @@ public class ChainManager : MonoBehaviour
             print("TWISTED "+ GameManager.isTwisted);
             print("Collisison  "+ isCollision);
             print("Twisted count   "+ twistedCount);
-           /* for (int i = 0; i < _chainsList.Count-1; i++)
-            {
-                
-                _chainsList[i].transform.DOLocalMove(_chainsList[i+1].transform.localPosition, .51f);
-            }*/
+           
         }
-        if (_chainsList.Count > 1&&_chainParent.transform.localRotation.y>0.70|| _chainParent.transform.localRotation.y < -0.70)
+        if (_chainsList.Count > 1 && _chainParent.transform.localRotation.y > 0.70 || _chainParent.transform.localRotation.y < -0.70)
         {
-             
-            if (chainParentList.Count>1)
+
+            if (chainParentList.Count > 1)
             {
 
                 _chainParent.transform.localRotation = Quaternion.identity;
                 chainParentList.Remove(_chainParent);
-                _chainParent = chainParentList[chainParentList.Count-1].transform;
+                _chainParent = chainParentList[chainParentList.Count - 1].transform;
                 _chainParent.transform.localRotation = Quaternion.identity;
             }
-            //_firstChain = _firstChain == null ? _lastChain : _firstChain; 
-            //  _firstChain.transform.parent = null;
-            //   _firstChain = _chain;
-
-
-            //_chain.transform.parent = _chainParent;
-            // _chain.transform.localPosition = Vector3.zero;
-            // _chain.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            // _chainPrefab.GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0);
-
-
         }
-
-        /*private void OnDrawGizmosSelected() {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, radiusForSpawn);
-        }*/
+        
         if (Input.GetMouseButtonUp(0))
         {
 
             GlobalEventManager.OnEndDrawing.Invoke();
+            _chainsList.Clear();
         }
     }
 

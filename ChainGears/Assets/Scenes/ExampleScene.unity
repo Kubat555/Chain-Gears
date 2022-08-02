@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 421028452}
   - component: {fileID: 421028451}
   - component: {fileID: 421028450}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: StartRotateGear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1744,7 +1744,7 @@ GameObject:
   - component: {fileID: 515884233}
   - component: {fileID: 515884235}
   - component: {fileID: 515884234}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2219,7 +2219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11152.6875, y: 0.0009765625}
+  m_AnchoredPosition: {x: 13659.398, y: 0.0009765625}
   m_SizeDelta: {x: 1402.1375, y: 0.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765548228
@@ -3961,7 +3961,7 @@ GameObject:
   - component: {fileID: 1205068917}
   - component: {fileID: 1205068919}
   - component: {fileID: 1205068920}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4506,7 +4506,7 @@ GameObject:
   - component: {fileID: 1257878328}
   - component: {fileID: 1257878327}
   - component: {fileID: 1257878326}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

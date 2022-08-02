@@ -41,7 +41,7 @@ public class ChainManager : MonoBehaviour
             return;
 
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
+        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject() && !isCollision)
         {
             print("TOUCH");
             touchPosition = raycastHit.point;
@@ -72,8 +72,9 @@ public class ChainManager : MonoBehaviour
 
             GlobalEventManager.OnEndDrawing.Invoke();
             _chainsList.Clear();
-            _chainParent= _currentParent;
+            _chainParent = _currentParent;
             chainParentList.Clear();
+
         }
     }
 
@@ -128,6 +129,8 @@ public class ChainManager : MonoBehaviour
         Destroy(_firstChain);
         GameManager.isWin = false;
         isCollision = false;
-        
+        _chainsList.Clear();
+        _chainParent = _currentParent;
+        chainParentList.Clear();
     }
 }

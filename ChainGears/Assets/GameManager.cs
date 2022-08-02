@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
-       // GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
+        GlobalEventManager.OnEndDrawing.AddListener(CheckConnectedChain);
         isWin = false;
         isTwisted = false;
         inGame = false;
@@ -30,19 +30,19 @@ public class GameManager : MonoBehaviour
     }
 
     [ContextMenu( "Rotate")]
-    public void CheckResults()
+    private void CheckConnectedChain()
     {
         if (!ChainManager.isCollision)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
-        }
-        else
-        {
-            if (isTwisted)
-                GlobalEventManager.OnChainBreaks.Invoke();
-            else
-                GlobalEventManager.OnWinGame.Invoke();
-        }
+        } 
+    }
+    public void CheckResults()
+    { 
+       if (isTwisted)
+           GlobalEventManager.OnChainBreaks.Invoke();
+       else
+           GlobalEventManager.OnWinGame.Invoke(); 
     }
 
     private void WinGame()

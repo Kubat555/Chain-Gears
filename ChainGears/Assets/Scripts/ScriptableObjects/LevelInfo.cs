@@ -9,4 +9,6 @@ public class LevelInfo : ScriptableObject {
     public List<Vector3> gearsRotation;
     public List<Vector3> gearsScale;
     public List<int> gearsDirection;
+
+    public int gearsCount;
 }

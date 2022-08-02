@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
     public void CheckResults()
     { 
-       if (isTwisted|| chainManager.gearList.Count<=0)
+       if (isTwisted|| chainManager.gearList.Count<3)
            GlobalEventManager.OnChainBreaks.Invoke();
        else
            GlobalEventManager.OnWinGame.Invoke(); 

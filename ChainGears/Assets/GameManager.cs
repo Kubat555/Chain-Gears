@@ -62,14 +62,14 @@ public class GameManager : MonoBehaviour
         inGame = false;
 
         StartCoroutine(TimerForWin());
-        HidePanel(inGamePanel, 0f, 0.5f);
+        HidePanel(inGamePanel, 0.5f, 0f);
     }
 
     private void LoseGame()
     {
 
         ShowPanel(losePanel, 1.4f, 1f, "bounce");
-        HidePanel(inGamePanel, 0f, 0.3f);
+        HidePanel(inGamePanel, 0.3f, 0f);
 
 
         isWin = false;

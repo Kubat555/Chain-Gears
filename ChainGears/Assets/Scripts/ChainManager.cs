@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class ChainManager : MonoBehaviour
@@ -10,9 +11,8 @@ public class ChainManager : MonoBehaviour
     [SerializeField] public Transform _chainParent; 
     public Transform _currentParent; 
     private GameObject _chain;
-    private GameObject _lastChain;
-    private GameObject _firstChain;
-    private GameObject _startChain;
+    private GameObject _lastChain; 
+    private GameObject _firstChain; 
     private Camera _mainCamera;
     private Vector3 _firstTouchPos;
     private Vector3 _currentTouchPos;
@@ -29,8 +29,7 @@ public class ChainManager : MonoBehaviour
         _chainsList.Clear();
         _currentParent = _chainParent;
         
-        _mainCamera = Camera.main;
-        GlobalEventManager.OnChainInGain.AddListener(ChangeParentChain);
+        _mainCamera = Camera.main; 
     }
 
     
@@ -42,8 +41,9 @@ public class ChainManager : MonoBehaviour
             return;
 
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0))
+        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
         {
+            print("TOUCH");
             touchPosition = raycastHit.point;
             touchPosition.y = 0.6f; 
             _currentTouchPos = touchPosition;
@@ -84,9 +84,8 @@ public class ChainManager : MonoBehaviour
         _chainParent.position = touchPosition;
         _chainParent.rotation = Quaternion.identity;
         _chain = Instantiate(_chainPrefab, _chainParent.position, Quaternion.identity, _chainParent);
-        _chain.tag = "BeginningOfChain";
-        _startChain = _chain;
         _firstChain = _chain;
+        _chain.tag = "BeginningOfChain"; 
         _chainsList.Add(_chain);
     }
 
@@ -123,9 +122,12 @@ public class ChainManager : MonoBehaviour
             _chainParent.transform.localRotation = Quaternion.identity;
         }
     }
-
-    private void ChangeParentChain()
+     
+    public void DestroyAll()
     {
+        Destroy(_firstChain);
+        GameManager.isWin = false;
+        isCollision = false;
         
     }
 }

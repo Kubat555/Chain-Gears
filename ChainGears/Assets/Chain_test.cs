@@ -14,8 +14,7 @@ public class Chain_test : MonoBehaviour
     { 
         if(collision.transform.tag == "Gear")
         {
-            print("TRUE");
-            GlobalEventManager.OnChainInGain.Invoke();
+            print("TRUE"); 
             chainManager._chainParent = transform;
             GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0); 
             if(!ChainManager.chainParentList.Contains(this.transform))

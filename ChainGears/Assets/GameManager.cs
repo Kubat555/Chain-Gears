@@ -16,27 +16,32 @@ public class GameManager : MonoBehaviour
     public static bool isWin;
     public static bool isTwisted;
     public static bool inGame;
-
+    ChainManager chainManager;
     private void Start()
     {
+        chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
-        GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
+       // GlobalEventManager.OnEndDrawing.AddListener(CheckResults);
         isWin = false;
         isTwisted = false;
         inGame = false;
         ChainManager.isCollision = false;
     }
 
-    private void CheckResults()
+    [ContextMenu( "Rotate")]
+    public void CheckResults()
     {
-        if (isTwisted||!ChainManager.isCollision)
+        if (!ChainManager.isCollision)
         {
-            GlobalEventManager.OnLoseGame.Invoke();
+            GlobalEventManager.OnChainBreaks.Invoke();
         }
         else
         {
-            GlobalEventManager.OnWinGame.Invoke();
+            if (isTwisted)
+                GlobalEventManager.OnChainBreaks.Invoke();
+            else
+                GlobalEventManager.OnWinGame.Invoke();
         }
     }
 
@@ -59,7 +64,7 @@ public class GameManager : MonoBehaviour
         isWin = false;
         isTwisted = false; 
         ChainManager.isCollision = false;
-        inGame = true;
+        inGame = false;
     }
 
 
@@ -76,15 +81,15 @@ public class GameManager : MonoBehaviour
     public void ReloadScene()
     {
         StartCoroutine(TimerForGame());
-
+        chainManager.DestroyAll();
         ChainManager.chainParentList.Clear();
-
+        GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
     }
 
     public void StartRotate()
     {
-        GlobalEventManager.RotateStart.Invoke();
+        GlobalEventManager.OnRotateStart.Invoke();
     }
 
     public void FromMainMenuToLevelSelect()
@@ -117,6 +122,10 @@ public class GameManager : MonoBehaviour
 
     #region ShowANDHidePanels 
     //МЕТОДЫ ДЛЯ СКРЫТИЯ И ПОЯВЛЕНИЯ ПАНЕЛЕЙ
+    public void HidePanel(GameObject panel)
+    {
+        panel.transform.localScale = new Vector3(0, 0, 0);
+    }
     private void HidePanel(GameObject panel, float time)
     {
         panel.transform.DOScale(new Vector3(0, 0, 0), time)

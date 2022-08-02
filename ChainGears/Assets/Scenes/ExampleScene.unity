@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4368417, g: 0.48448437, b: 0.56474036, a: 1}
+  m_IndirectSpecularColor: {r: 0.43684152, g: 0.48448396, b: 0.5647399, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 421028452}
   - component: {fileID: 421028451}
   - component: {fileID: 421028450}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: StartRotateGear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1506,6 +1506,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1415581262}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartRotate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1415581262}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckResults
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1732,7 +1744,7 @@ GameObject:
   - component: {fileID: 515884233}
   - component: {fileID: 515884235}
   - component: {fileID: 515884234}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2207,7 +2219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5273.8535, y: 0.0009765625}
+  m_AnchoredPosition: {x: 11152.6875, y: 0.0009765625}
   m_SizeDelta: {x: 1402.1375, y: 0.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765548228
@@ -2784,7 +2796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.4865723, y: -66.303}
+  m_AnchoredPosition: {x: 1.4865723, y: -66.30301}
   m_SizeDelta: {x: -61.7541, y: -196.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &897589931
@@ -3949,7 +3961,7 @@ GameObject:
   - component: {fileID: 1205068917}
   - component: {fileID: 1205068919}
   - component: {fileID: 1205068920}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4494,7 +4506,7 @@ GameObject:
   - component: {fileID: 1257878328}
   - component: {fileID: 1257878327}
   - component: {fileID: 1257878326}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5706,13 +5718,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1834426854}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1415581262}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HidePanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1834426854}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6565,6 +6577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _chainPrefab: {fileID: 1114944186031700958, guid: ff25f9c13f9abdc4eb634f9bfc0d272b, type: 3}
   _chainParent: {fileID: 1167724047}
+  _currentParent: {fileID: 0}
 --- !u!4 &2001074009
 Transform:
   m_ObjectHideFlags: 0
@@ -6849,13 +6862,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1411924845}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1415581262}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HidePanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1411924845}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

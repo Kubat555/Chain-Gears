@@ -8,7 +8,7 @@ public class GearScript : MonoBehaviour
     [SerializeField] bool clockwise;
     public int direction;
     Rigidbody rb;
-    bool isRotate = false;
+    public static bool isRotate = false;
    
 
     private void Awake() {

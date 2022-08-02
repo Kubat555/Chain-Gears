@@ -127,20 +127,23 @@ public class GameManager : MonoBehaviour
         ShowPanel(mainMenuPanel, 0.8f, 1f);
     }
 
-    public void ShowSettingsPanel()
+    public void ControlSettingsPanel()
     {
-        HidePanel(pauseIcon, 0.5f, 0f);
-        ShowPanel(resumeIcon, 0.5f, 0.5f);
-        ShowPanel(settingsPanel, 0.8f, 1f, "bounce");
-        inGame = false;
-    }
-
-    public void HideSettingsPanel()
-    {
-        HidePanel(settingsPanel, 0.8f, 0f);
-        HidePanel(resumeIcon, 0.5f, 0f);
-        ShowPanel(pauseIcon, 0.8f, 0.5f);
-        inGame = true;
+        if (inGame)
+        {
+            HidePanel(pauseIcon, 0.5f, 0f);
+            ShowPanel(resumeIcon, 0.5f, 0.5f);
+            ShowPanel(settingsPanel, 0.8f, 1f, "bounce");
+            inGame = false;
+        }
+        else
+        {
+            HidePanel(settingsPanel, 0.8f, 0f);
+            HidePanel(resumeIcon, 0.5f, 0f);
+            ShowPanel(pauseIcon, 0.8f, 0.5f);
+            inGame = true;
+        }
+        
     }
 
     public void GoToMainMenu()

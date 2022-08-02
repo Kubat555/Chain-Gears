@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseIcon;
     [SerializeField] private GameObject resumeIcon;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject splineChain;
 
     [SerializeField] private GameObject winParticles;
 
@@ -58,6 +59,9 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        splineChain.SetActive(true);
+
+        chainManager.DestroyAll();
         isWin = true;
         inGame = false;
 
@@ -96,17 +100,16 @@ public class GameManager : MonoBehaviour
     {
         attempts = 3;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
-        StartCoroutine(TimerForGame());
-        chainManager.DestroyAll();
+        StartCoroutine(TimerForGame()); 
         ChainManager.chainParentList.Clear();
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
-
+        splineChain.SetActive(false);
         HidePanel(settingsPanel, 0.8f, 0f);
         ShowPanel(inGamePanel, 1f, 1f, "bounce");
         HidePanel(resumeIcon, 0.5f, 0f);
         ShowPanel(pauseIcon, 0.8f, 0.5f);
-
+        inGame = true;
         chainManager.DestroyAll();
     }
 

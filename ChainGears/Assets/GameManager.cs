@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,16 +14,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject winParticles;
 
+    [SerializeField] private Animator textAnim;
+
+    [SerializeField] private TextMeshProUGUI attemptsText;
+    [HideInInspector] public int attempts = 3;
+
     public static bool isWin;
     public static bool isTwisted;
     public static bool inGame;
     ChainManager chainManager;
     private void Start()
-    {
+    {   
         chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnWinGame.AddListener(WinGame);
         GlobalEventManager.OnLoseGame.AddListener(LoseGame);
         GlobalEventManager.OnEndDrawing.AddListener(CheckConnectedChain);
+        GlobalEventManager.OnChainBreaks.AddListener(ShowConnectChainText);
         isWin = false;
         isTwisted = false;
         inGame = false;
@@ -70,6 +77,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(int level)
     {
+        attempts = 3;
+        attemptsText.text = "ATTEMPTS: " + attempts.ToString();
+
         HidePanel(levelSelectPanel, 0.5f);
         ShowPanel(inGamePanel, 0.8f, "bounce");
 
@@ -85,6 +95,7 @@ public class GameManager : MonoBehaviour
         ChainManager.chainParentList.Clear();
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
+        ShowPanel(inGamePanel, 1f, "bounce");
     }
 
     public void StartRotate()
@@ -152,4 +163,11 @@ public class GameManager : MonoBehaviour
              .SetEase(Ease.OutBounce);
     }
     #endregion
+
+    private void ShowConnectChainText()
+    {
+        textAnim.SetTrigger("Show");
+        attempts--;
+        attemptsText.text = "ATTEMPTS: " + attempts.ToString();
+    }
 }

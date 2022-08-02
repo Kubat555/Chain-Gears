@@ -18,7 +18,7 @@ public class ChainManager : MonoBehaviour
     private Vector3 _currentTouchPos;
     private List<GameObject> _chainsList = new List<GameObject>();
 
-    public static int twistedCount;
+    public static List<GameObject> twistedChainList = new List<GameObject>();
     
     public static List<Transform> chainParentList = new List<Transform>();
     public static bool isCollision;
@@ -38,11 +38,11 @@ public class ChainManager : MonoBehaviour
         Vector3 touchPosition;
     private void Update()
     {
-        if (GameManager.isWin||!GameManager.inGame)
+        if (GameManager.isWin||!GameManager.inGame  )
             return;
 
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject() && !isCollision)
+        if (Physics.Raycast(ray, out RaycastHit raycastHit) && Input.GetMouseButton(0) && !isCollision)
         { 
             touchPosition = raycastHit.point;
             touchPosition.y = 0.6f; 
@@ -50,7 +50,7 @@ public class ChainManager : MonoBehaviour
             _chainParent = _chainParent == null ? _chain.transform : _chainParent;
             _chainParent.transform.LookAt(touchPosition); 
 
-            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="Floor" && _chainsList.Count < 1)
+            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="Floor" && _chainsList.Count < 1 /*&& !EventSystem.current.IsPointerOverGameObject()*/)
             {
                 StartDrawing();
                 
@@ -67,7 +67,7 @@ public class ChainManager : MonoBehaviour
             RemoveParent();
         }
         
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
         {
 
             GlobalEventManager.OnEndDrawing.Invoke();

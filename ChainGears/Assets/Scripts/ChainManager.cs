@@ -56,7 +56,7 @@ public class ChainManager : MonoBehaviour
                 StartDrawing();
                 
             }
-           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.33 && _chainsList.Count > 0)
+           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.13 && _chainsList.Count > 0)
             {
                 Drawing(raycastHit); 
                 GameManager.Instance.rotateButton.interactable = true;
@@ -105,7 +105,7 @@ public class ChainManager : MonoBehaviour
             _lastChain = _chainsList[_chainsList.Count - 1];
             _chain = Instantiate(_chainPrefab, _lastChain.transform.position, _lastChain.transform.rotation, _chain.transform);
             _chainsList.Add(_chain);
-            _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.36f);
+            _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.15f);
             var joint = _chain.GetComponent<HingeJoint>();
             joint.connectedBody = _lastChain.GetComponent<Rigidbody>();
         }
@@ -113,6 +113,10 @@ public class ChainManager : MonoBehaviour
         {
             Destroy(_chain);
             chainParentList.Remove(_chain.transform);
+            if(chainParentList.Count>1)
+                _chainParent = chainParentList[chainParentList.Count-1];
+            else
+                _chainParent = _currentParent;
             _chainsList.RemoveAt(_chainsList.Count - 1);
             _chain = _chainsList[_chainsList.Count - 1]; ;
             _firstTouchPos = _chain.transform.position;

@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: 1level
   m_EditorClassIdentifier: 
   gearsPositions:
-  - {x: 0.873, y: 0.6, z: 1.314}
-  - {x: -2.01, y: 0.6, z: -1.21}
-  - {x: 0.999, y: 0.6, z: -1.066}
+  - {x: 1.164, y: 0.6, z: 1.4}
+  - {x: 1.29, y: 0.6, z: -0.98}
+  - {x: -1.7190001, y: 0.6, z: -1.1240001}
   gearsRotation:
   - {x: 0, y: 103.229, z: 0}
-  - {x: 0, y: -19.525, z: 0}
-  - {x: 0, y: 233.015, z: 0}
+  - {x: 0, y: -107.396, z: 0}
+  - {x: 0, y: -58.503, z: 0}
   gearsScale:
   - {x: 5, y: 2.83, z: 5}
-  - {x: 4, y: 2.83, z: 4}
   - {x: 6, y: 2.83, z: 6}
+  - {x: 4, y: 2.83, z: 4}
   gearsDirection: 010000000100000001000000
+  gearsCount: 0

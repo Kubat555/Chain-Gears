@@ -82,14 +82,14 @@ public class GameManager : MonoBehaviour
         inGame = false;
 
         StartCoroutine(TimerForWin());
-        HidePanel(inGamePanel, 0.5f, 0f);
+        HidePanel(inGamePanel, 0.2f, 0f);
     }
 
     private void LoseGame()
     {
 
-        ShowPanel(losePanel, 1.4f, 1f, "bounce");
-        HidePanel(inGamePanel, 0.3f, 0f);
+        ShowPanel(losePanel, 1.4f, 1f);
+        HidePanel(inGamePanel, 0.2f, 0f);
 
 
         isWin = false;
@@ -104,8 +104,8 @@ public class GameManager : MonoBehaviour
         attempts = 3;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
 
-        HidePanel(levelSelectPanel, 0.5f, 0f);
-        ShowPanel(inGamePanel, 0.8f, 1f, "bounce");
+        HidePanel(levelSelectPanel, 0.2f, 0f);
+        ShowPanel(inGamePanel, 0.2f, 1f);
 
         StartCoroutine(TimerForGame(0.001f));
 
@@ -122,10 +122,10 @@ public class GameManager : MonoBehaviour
         GearScript.isRotate = false;
         LevelController.Instance.StartLevel(LevelController.currentLevelIndex);
         HideSpline();
-        HidePanel(settingsPanel, 0.8f, 0f);
-        ShowPanel(inGamePanel, 1f, 1f, "bounce");
-        HidePanel(resumeIcon, 0.5f, 0f);
-        ShowPanel(pauseIcon, 0.8f, 0.5f);
+        HidePanel(settingsPanel, 0.2f, 0f);
+        ShowPanel(inGamePanel, 0.2f, 1f);
+        HidePanel(resumeIcon, 0.2f, 0f);
+        ShowPanel(pauseIcon, 0.2f, 0.5f);
         inGame = true;
         chainManager.DestroyAll();
         rotateButton.interactable = false;
@@ -143,30 +143,30 @@ public class GameManager : MonoBehaviour
 
     public void FromMainMenuToLevelSelect()
     {
-        HidePanel(mainMenuPanel, 0.5f, 0f);
-        ShowPanel(levelSelectPanel, 0.8f, 1f);
+        HidePanel(mainMenuPanel, 0.2f, 0f);
+        ShowPanel(levelSelectPanel, 0.2f, 1f);
     }
 
     public void FromLevelSelectToMainmenu()
     {
-        HidePanel(levelSelectPanel, 0.5f, 0f);
-        ShowPanel(mainMenuPanel, 0.8f, 1f);
+        HidePanel(levelSelectPanel, 0.2f, 0f);
+        ShowPanel(mainMenuPanel, 0.2f, 1f);
     }
 
     public void ControlSettingsPanel()
     {
         if (inGame)
         {
-            HidePanel(pauseIcon, 0.5f, 0f);
-            ShowPanel(resumeIcon, 0.5f, 0.5f);
-            ShowPanel(settingsPanel, 0.8f, 1f, "bounce");
+            HidePanel(pauseIcon, 0.01f, 0f);
+            ShowPanel(resumeIcon, 0.01f, 0.5f);
+            ShowPanel(settingsPanel, 0.1f, 1f);
             inGame = false;
         }
         else
         {
-            HidePanel(settingsPanel, 0.8f, 0f);
-            HidePanel(resumeIcon, 0.5f, 0f);
-            ShowPanel(pauseIcon, 0.8f, 0.5f);
+            HidePanel(settingsPanel, 0.1f, 0f);
+            HidePanel(resumeIcon, 0.01f, 0f);
+            ShowPanel(pauseIcon, 0.01f, 0.5f);
             inGame = true;
         }
         
@@ -174,13 +174,13 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        HidePanel(winPanel, 0.5f, 0f);
-        HidePanel(losePanel, 0.5f, 0f);
-        HidePanel(resumeIcon, 0.5f, 0f);
-        HidePanel(settingsPanel, 0.8f, 0f);
-        HidePanel(inGamePanel, 0.8f, 0f);
-        ShowPanel(pauseIcon, 0.8f, 0.5f);
-        ShowPanel(mainMenuPanel, 0.8f, 1f, "bounce");
+        HidePanel(winPanel, 0.2f, 0f);
+        HidePanel(losePanel, 0.2f, 0f);
+        HidePanel(resumeIcon, 0.2f, 0f);
+        HidePanel(settingsPanel, 0.2f, 0f);
+        HidePanel(inGamePanel, 0.2f, 0f);
+        ShowPanel(pauseIcon, 0.2f, 0.5f);
+        ShowPanel(mainMenuPanel, 0.2f, 1f);
 
         LevelController.Instance.HideGears();
         HideSpline();
@@ -189,13 +189,13 @@ public class GameManager : MonoBehaviour
 
     public void GoToLevelSelect()
     {
-        HidePanel(winPanel, 0.5f, 0f);
-        HidePanel(losePanel, 0.5f, 0f);
-        HidePanel(resumeIcon, 0.5f, 0f);
-        HidePanel(settingsPanel, 0.8f, 0f);
-        HidePanel(inGamePanel, 0.8f, 0f);
-        ShowPanel(pauseIcon, 0.8f, 0.5f);
-        ShowPanel(levelSelectPanel, 0.8f, 1f, "bounce");
+        HidePanel(winPanel, 0.2f, 0f);
+        HidePanel(losePanel, 0.2f, 0f);
+        HidePanel(resumeIcon, 0.2f, 0f);
+        HidePanel(settingsPanel, 0.2f, 0f);
+        HidePanel(inGamePanel, 0.2f, 0f);
+        ShowPanel(pauseIcon, 0.2f, 0.5f);
+        ShowPanel(levelSelectPanel, 0.2f, 1f);
 
         LevelController.Instance.HideGears();
         HideSpline();
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Instantiate(winParticles);
-        ShowPanel(winPanel, 1.4f, 1, "bounce");
+        ShowPanel(winPanel, 1.4f, 1);
     }
 
     IEnumerator TimerForGame(float time)
@@ -238,13 +238,13 @@ public class GameManager : MonoBehaviour
              .SetEase(Ease.OutCubic);
     }
 
-    private void HidePanel(GameObject panel, float time, float size, string bounce)
-    {
-        if (panel.transform.localScale.x <= 0) return;
-        panel.transform.DOScale(new Vector3(size, size, 0), time)
-             .SetEase(Ease.OutCubic)
-             .SetEase(Ease.OutBounce);
-    }
+    //private void HidePanel(GameObject panel, float time, float size, string bounce)
+    //{
+    //    if (panel.transform.localScale.x <= 0) return;
+    //    panel.transform.DOScale(new Vector3(size, size, 0), time)
+    //         .SetEase(Ease.OutCubic)
+    //         .SetEase(Ease.OutBounce);
+    //}
 
     private void ShowPanel(GameObject panel, float time, float size)
     {
@@ -253,13 +253,13 @@ public class GameManager : MonoBehaviour
              .SetEase(Ease.OutCubic);
     }
 
-    private void ShowPanel(GameObject panel, float time, float size, string bounce)
-    {
-        if (panel.transform.localScale.x > 0) return;
-        panel.transform.DOScale(new Vector3(size, size, 1), time)
-             .SetEase(Ease.OutCubic)
-             .SetEase(Ease.OutBounce);
-    }
+    //private void ShowPanel(GameObject panel, float time, float size, string bounce)
+    //{
+    //    if (panel.transform.localScale.x > 0) return;
+    //    panel.transform.DOScale(new Vector3(size, size, 1), time)
+    //         .SetEase(Ease.OutCubic)
+    //         .SetEase(Ease.OutBounce);
+    //}
     #endregion
 
     private void ShowConnectChainText()

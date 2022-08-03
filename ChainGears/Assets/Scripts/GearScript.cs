@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GearScript : MonoBehaviour
 {
+    [SerializeField] GameObject gear;
     [SerializeField] float speed;
     public int direction;
     Rigidbody rb;
@@ -16,6 +17,7 @@ public class GearScript : MonoBehaviour
         GlobalEventManager.OnRotateStart.AddListener(StartRotate);
         GlobalEventManager.OnRotateStop.AddListener(StopRotate);
     }
+
     private void FixedUpdate() {
         if(isRotate){
             RotateGear();
@@ -26,7 +28,7 @@ public class GearScript : MonoBehaviour
         // rb.WakeUp();
         // rb.AddTorque(Vector3.up * direction * speed * Time.deltaTime);
 
-        transform.Rotate(Vector3.up * direction * speed * Time.deltaTime);
+        gear.transform.Rotate(Vector3.up * direction * speed * Time.deltaTime);
     }
 
     void StartRotate(){

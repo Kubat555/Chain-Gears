@@ -44,13 +44,20 @@ public class LevelController : MonoBehaviour
     }
 
     public void NextLevel(){
+        GameManager.Instance.HideSpline();
+
         StartLevel(Mathf.Clamp(currentLevelIndex + 1, 0, _maxLevelIndex - 1));
+
+        GameManager.Instance.StartGame(currentLevelIndex);
+        GlobalEventManager.OnRotateStop.Invoke();
+        GameManager.isWin = false;
     }
 
     public void HideGears(){
         for(int i = 0; i < gears.Count; i++){
             gears[i].SetActive(false);
         }
+        GlobalEventManager.OnRotateStop.Invoke();
     }
 
 }

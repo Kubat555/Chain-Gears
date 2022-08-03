@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     private void LoseGame()
     {
 
-        ShowPanel(losePanel, 1.4f, 1f);
+        ShowPanel(losePanel, 0.4f, 1f);
         HidePanel(inGamePanel, 0.2f, 0f);
 
 
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Instantiate(winParticles);
-        ShowPanel(winPanel, 1.4f, 1);
+        ShowPanel(winPanel, 0.4f, 1);
     }
 
     IEnumerator TimerForGame(float time)

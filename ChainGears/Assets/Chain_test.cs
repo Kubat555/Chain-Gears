@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Chain_test : MonoBehaviour
 {
+    public bool loseCollide;
     ChainManager chainManager;
     private void Start()
     {
+        loseCollide = false;
         chainManager = FindObjectOfType<ChainManager>();
         GlobalEventManager.OnChainBreaks.AddListener(BreakChain);
     }
@@ -32,6 +34,12 @@ public class Chain_test : MonoBehaviour
             ChainManager.twistedChainList.Add(collision.gameObject); 
             GameManager.isTwisted = true; 
         }
+        if(collision.transform.tag == "GameOver"){
+            ChainManager.gameOver = true;
+            ChainManager.gameOverCollideCount++;
+            loseCollide = true;
+            Debug.Log(ChainManager.gameOverCollideCount);
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -53,6 +61,16 @@ public class Chain_test : MonoBehaviour
             ChainManager.twistedChainList.Remove(collision.gameObject);
             if (ChainManager.twistedChainList.Count <= 0)
                 GameManager.isTwisted = false;
+        }
+        if(collision.transform.tag == "GameOver" && ChainManager.gameOverCollideCount > 0){
+            ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
+            Debug.Log(ChainManager.gameOverCollideCount);
+        }
+        if(collision.transform.tag == "GameOver" && ChainManager.gameOverCollideCount == 0){
+            ChainManager.gameOver = false;
+            loseCollide = false;
+            Debug.Log("Игрок уже не проиграет");
+
         }
     }
 

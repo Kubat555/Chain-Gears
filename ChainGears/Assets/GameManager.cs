@@ -69,17 +69,21 @@ public class GameManager : MonoBehaviour
         if (!ChainManager.isCollision)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
+            ChainManager.gameOver = false;
+            ChainManager.gameOverCollideCount = 0;
             AudioPlayer.instance.PlaySound(chainBreaksAudioClip);
         }
         
     }
     public void CheckResults()
     {
-        if (isTwisted || chainManager.gearList.Count < 3)
+        if (isTwisted || chainManager.gearList.Count < 3 || ChainManager.gameOver)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
             rotateButton.interactable = false;
             AudioPlayer.instance.PlaySound(chainBreaksAudioClip);
+            ChainManager.gameOver = false;
+            ChainManager.gameOverCollideCount = 0;
         }
         else
         {

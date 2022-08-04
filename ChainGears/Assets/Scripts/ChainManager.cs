@@ -23,6 +23,8 @@ public class ChainManager : MonoBehaviour
     
     public static List<Transform> chainParentList = new List<Transform>();
     public static bool isCollision;
+    public static bool gameOver; // Переменная становится правдой если игрок коснулся gameover коллайдера
+    public static int gameOverCollideCount; // Переменная становится больше при каждом касании gameover коллайдера
 
     public List<GameObject> gearList = new List<GameObject>();
 
@@ -34,6 +36,8 @@ public class ChainManager : MonoBehaviour
         
         _mainCamera = Camera.main;
         gearList.Clear();
+        gameOver = false;
+        gameOverCollideCount = 0;
     }
 
         Vector3 touchPosition;
@@ -122,6 +126,9 @@ public class ChainManager : MonoBehaviour
         }
         else if (raycastHit.collider.tag == "Chain" && _chainsList.Count > 1)
         {
+            if(_chain.GetComponent<Chain_test>().loseCollide){
+                ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
+            }
             Destroy(_chain);
             chainParentList.Remove(_chain.transform);
             if(chainParentList.Count>1)

@@ -11,6 +11,7 @@ TagManager:
   - Floor
   - RightWay
   - StartZone
+  - GameOver
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,7 @@ public class VolumeChangeSystem : MonoBehaviour
     private void Awake()
     {
 
-        sliderEffectsPrevValue = PlayerPrefs.GetFloat("EffectsVolume");
+        sliderEffectsPrevValue = PlayerPrefs.GetFloat("EffectsVolume", 1);
 
         audioEffects.volume = sliderEffectsPrevValue;
 

@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip chainBreaksAudioClip;
     [SerializeField] private GameObject engineAudioGameObject;
 
-    [Header("Other")]
+    [Header("Particles")]
+    [SerializeField] private GameObject winParticlesEngine;
     [SerializeField] private GameObject winParticles;
 
+    [Header("Other")]
     [SerializeField] private Animator textAnim;
     [SerializeField] private TextMeshProUGUI attemptsText;
     [SerializeField] private List<GameObject> splineChain;
@@ -88,6 +90,8 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        Instantiate(winParticles);
+        winParticlesEngine.SetActive(true);
         splineChain[LevelController.currentLevelIndex].SetActive(true);
 
         chainManager.DestroyAll();
@@ -225,10 +229,11 @@ public class GameManager : MonoBehaviour
     #region Coroutines
     IEnumerator TimerForWin()
     {
-        yield return new WaitForSeconds(1);
-        Instantiate(winParticles);
+        yield return new WaitForSeconds(2);
         ShowPanel(winPanel, 0.4f, 1);
         AudioPlayer.instance.PlaySound(winAudioClip);
+        yield return new WaitForSeconds(1);
+        winParticlesEngine.SetActive(false);
     }
 
     IEnumerator TimerForGame(float time)

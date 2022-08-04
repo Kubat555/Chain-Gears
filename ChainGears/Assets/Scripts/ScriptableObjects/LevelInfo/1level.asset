@@ -19,7 +19,7 @@ MonoBehaviour:
   gearsRotation:
   - {x: 0, y: 103.229, z: 0}
   - {x: 0, y: -107.396, z: 0}
-  - {x: 0, y: -58.503, z: 0}
+  - {x: 0, y: -32.576, z: 0}
   gearsScale:
   - {x: 5, y: 1.5, z: 5}
   - {x: 6, y: 1.5, z: 6}

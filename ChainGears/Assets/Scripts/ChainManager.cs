@@ -38,7 +38,7 @@ public class ChainManager : MonoBehaviour
         Vector3 touchPosition;
     private void Update()
     {
-        print(GameManager.inGame);
+        // print(GameManager.inGame);
         if (GameManager.isWin||!GameManager.inGame  )
             return;
 

@@ -10,6 +10,7 @@ public class LevelController : MonoBehaviour
     
     public static LevelController Instance;
     public static int currentLevelIndex;
+    public int maxLevels{get{return _maxLevelIndex;}}
     
     private void Awake() {
         if(Instance == null){

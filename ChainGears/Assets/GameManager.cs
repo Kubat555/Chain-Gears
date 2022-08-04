@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         chainManager.DestroyAll();
         isWin = true;
         inGame = false;
+        SaveSystem.Instance.UpdatePlayerPrefs();
 
         StartCoroutine(TimerForWin());
         HidePanel(inGamePanel, 0.2f, 0f);

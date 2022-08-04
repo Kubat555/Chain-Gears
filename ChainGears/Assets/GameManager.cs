@@ -8,6 +8,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header ("Panels")]
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject inGamePanel;
@@ -17,6 +18,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject resumeIcon;
     [SerializeField] private GameObject settingsPanel;
 
+    [Header("AudioClips")]
+    [SerializeField] private AudioClip winAudioClip;
+    [SerializeField] private AudioClip loseAudioClip;
+    [SerializeField] private AudioClip chainBreaksAudioClip;
+    [SerializeField] private GameObject engineAudioGameObject;
+
+    [Header("Other")]
     [SerializeField] private GameObject winParticles;
 
     [SerializeField] private Animator textAnim;
@@ -59,6 +67,7 @@ public class GameManager : MonoBehaviour
         if (!ChainManager.isCollision)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
+            AudioPlayer.instance.PlaySound(chainBreaksAudioClip);
         }
         
     }
@@ -68,9 +77,13 @@ public class GameManager : MonoBehaviour
         {
             GlobalEventManager.OnChainBreaks.Invoke();
             rotateButton.interactable = false;
+            AudioPlayer.instance.PlaySound(chainBreaksAudioClip);
         }
         else
+        {
             GlobalEventManager.OnWinGame.Invoke();
+            engineAudioGameObject.SetActive(true);
+        }
     }
 
     private void WinGame()
@@ -84,15 +97,15 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(TimerForWin());
         HidePanel(inGamePanel, 0.2f, 0f);
+        
     }
 
     private void LoseGame()
     {
-
         ShowPanel(losePanel, 0.4f, 1f);
         HidePanel(inGamePanel, 0.2f, 0f);
 
-
+        AudioPlayer.instance.PlaySound(loseAudioClip);
         isWin = false;
         isTwisted = false;
         ChainManager.isCollision = false;
@@ -102,6 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(int level)
     {
+        AudioPlayer.instance.StopSound();
         attempts = 3;
         attemptsText.text = "ATTEMPTS: " + attempts.ToString();
 
@@ -111,7 +125,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TimerForGame(0.001f));
 
         LevelController.Instance.StartLevel(level);
-        rotateButton.interactable = false;
+        rotateButton.interactable = false;    
     }
 
     public void ReloadScene()
@@ -130,6 +144,7 @@ public class GameManager : MonoBehaviour
         inGame = true;
         chainManager.DestroyAll();
         rotateButton.interactable = false;
+        AudioPlayer.instance.StopSound();
     }
 
     public void HideSpline()
@@ -186,6 +201,8 @@ public class GameManager : MonoBehaviour
         LevelController.Instance.HideGears();
         HideSpline();
         isWin = false;
+
+        AudioPlayer.instance.StopSound();
     }
 
     public void GoToLevelSelect()
@@ -201,6 +218,8 @@ public class GameManager : MonoBehaviour
         LevelController.Instance.HideGears();
         HideSpline();
         isWin = false;
+
+        AudioPlayer.instance.StopSound();
     }
 
     #region Coroutines
@@ -209,6 +228,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         Instantiate(winParticles);
         ShowPanel(winPanel, 0.4f, 1);
+        AudioPlayer.instance.PlaySound(winAudioClip);
     }
 
     IEnumerator TimerForGame(float time)

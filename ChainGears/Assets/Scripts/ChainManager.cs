@@ -17,7 +17,9 @@ public class ChainManager : MonoBehaviour
     private Camera _mainCamera;
     private Vector3 _firstTouchPos;
     private Vector3 _currentTouchPos;
-    private List<GameObject> _chainsList = new List<GameObject>();
+
+    [HideInInspector]
+    public List<GameObject> chainsList = new List<GameObject>();
 
     public static List<GameObject> twistedChainList = new List<GameObject>();
     
@@ -25,13 +27,20 @@ public class ChainManager : MonoBehaviour
     public static bool isCollision;
     public static bool gameOver; // Переменная становится правдой если игрок коснулся gameover коллайдера
     public static int gameOverCollideCount; // Переменная становится больше при каждом касании gameover коллайдера
+    public static ChainManager Instance;
 
     public List<GameObject> gearList = new List<GameObject>();
 
     private int timerForAudio = 5;
+
+    private void Awake() {
+        if(Instance == null){
+            Instance = this;
+        }
+    }
     private void Start()
     {
-        _chainsList.Clear();
+        chainsList.Clear();
         _currentParent = _chainParent;
         
         _mainCamera = Camera.main;
@@ -56,12 +65,12 @@ public class ChainManager : MonoBehaviour
             _chainParent = _chainParent == null ? _chain.transform : _chainParent;
             _chainParent.transform.LookAt(touchPosition); 
 
-            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="StartZone" && _chainsList.Count < 1 /*&& !EventSystem.current.IsPointerOverGameObject()*/)
+            if (Input.GetMouseButtonDown(0) &&raycastHit.collider.tag =="StartZone" && chainsList.Count < 1 /*&& !EventSystem.current.IsPointerOverGameObject()*/)
             {
                 StartDrawing();
                 
             }
-           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.13 && _chainsList.Count > 0)
+           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.13 && chainsList.Count > 0)
             {
                 Drawing(raycastHit); 
                 GameManager.Instance.rotateButton.interactable = true;
@@ -69,16 +78,16 @@ public class ChainManager : MonoBehaviour
 
         }
          
-        if (_chainsList.Count >1 && _chainParent.transform.localRotation.y > 0.70 || _chainParent.transform.localRotation.y < -0.70)
+        if (chainsList.Count >1 && _chainParent.transform.localRotation.y > 0.70 || _chainParent.transform.localRotation.y < -0.70)
         {
             RemoveParent();
         }
         
-        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()&& _chainsList.Count > 0)
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()&& chainsList.Count > 0)
         {
 
             GlobalEventManager.OnEndDrawing.Invoke();
-            _chainsList.Clear();
+            chainsList.Clear();
             _chainParent = _currentParent;
             chainParentList.Clear();
 
@@ -96,10 +105,13 @@ public class ChainManager : MonoBehaviour
         _chainParent.position = touchPosition;
         _chainParent.rotation = Quaternion.identity;
         _chain = Instantiate(_chainPrefab, _chainParent.position, Quaternion.identity, _chainParent);
+        SphereCollider sphereCollider = _chain.AddComponent<SphereCollider>();
+        sphereCollider.radius = 0.2f;
+        sphereCollider.isTrigger = true;
         AudioPlayer.instance.PlaySound(setOnePartOfChainAudioClip);
         _firstChain = _chain;
         _chain.tag = "BeginningOfChain"; 
-        _chainsList.Add(_chain);
+        chainsList.Add(_chain);
         
     }
 
@@ -108,7 +120,7 @@ public class ChainManager : MonoBehaviour
         if (raycastHit.collider.tag != "Chain")
         {
             _firstTouchPos = touchPosition;
-            _lastChain = _chainsList[_chainsList.Count - 1];
+            _lastChain = chainsList[chainsList.Count - 1];
             _chain = Instantiate(_chainPrefab, _lastChain.transform.position, _lastChain.transform.rotation, _chain.transform);
             if (timerForAudio == 0)
             {
@@ -119,12 +131,12 @@ public class ChainManager : MonoBehaviour
             {
                 timerForAudio--;
             }
-            _chainsList.Add(_chain);
+            chainsList.Add(_chain);
             _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.15f);
             var joint = _chain.GetComponent<HingeJoint>();
             joint.connectedBody = _lastChain.GetComponent<Rigidbody>();
         }
-        else if (raycastHit.collider.tag == "Chain" && _chainsList.Count > 1)
+        else if (raycastHit.collider.tag == "Chain" && chainsList.Count > 1)
         {
             if(_chain.GetComponent<Chain_test>().loseCollide){
                 ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
@@ -135,8 +147,8 @@ public class ChainManager : MonoBehaviour
                 _chainParent = chainParentList[chainParentList.Count-1];
             else
                 _chainParent = _currentParent;
-            _chainsList.RemoveAt(_chainsList.Count - 1);
-            _chain = _chainsList[_chainsList.Count - 1]; ;
+            chainsList.RemoveAt(chainsList.Count - 1);
+            _chain = chainsList[chainsList.Count - 1]; ;
             _firstTouchPos = _chain.transform.position;
         }
     }
@@ -158,7 +170,7 @@ public class ChainManager : MonoBehaviour
         Destroy(_firstChain);
         GameManager.isWin = false;
         isCollision = false;
-        _chainsList.Clear();
+        chainsList.Clear();
         _chainParent = _currentParent;
         chainParentList.Clear();
         gearList.Clear();

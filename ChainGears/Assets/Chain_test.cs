@@ -74,6 +74,14 @@ public class Chain_test : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("BeginningOfChain") && ChainManager.Instance.chainsList.Count > 5){
+            chainManager._chainParent.LookAt(other.transform);
+            GetComponent<HingeJoint>().connectedBody = other.GetComponent<Rigidbody>();
+            ChainManager.isCollision = true;
+        }
+    }
+
     private void BreakChain()
     {
         transform.parent = null;
@@ -97,4 +105,5 @@ public class Chain_test : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }
+
 }

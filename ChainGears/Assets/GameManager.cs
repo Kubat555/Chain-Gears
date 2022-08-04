@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         HidePanel(inGamePanel, 0.2f, 0f);
         ChainManager.gameOver = false;
         ChainManager.gameOverCollideCount = 0;
+        
     }
 
     private void LoseGame()

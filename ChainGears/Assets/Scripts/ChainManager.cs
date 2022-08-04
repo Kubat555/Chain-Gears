@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class ChainManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip setOnePartOfChainAudioClip;
 
     [SerializeField] private GameObject _chainPrefab; 
     [SerializeField] public Transform _chainParent; 
@@ -24,6 +25,8 @@ public class ChainManager : MonoBehaviour
     public static bool isCollision;
 
     public List<GameObject> gearList = new List<GameObject>();
+
+    private int timerForAudio = 5;
     private void Start()
     {
         _chainsList.Clear();
@@ -32,8 +35,6 @@ public class ChainManager : MonoBehaviour
         _mainCamera = Camera.main;
         gearList.Clear();
     }
-
-    
 
         Vector3 touchPosition;
     private void Update()
@@ -91,6 +92,7 @@ public class ChainManager : MonoBehaviour
         _chainParent.position = touchPosition;
         _chainParent.rotation = Quaternion.identity;
         _chain = Instantiate(_chainPrefab, _chainParent.position, Quaternion.identity, _chainParent);
+        AudioPlayer.instance.PlaySound(setOnePartOfChainAudioClip);
         _firstChain = _chain;
         _chain.tag = "BeginningOfChain"; 
         _chainsList.Add(_chain);
@@ -104,6 +106,15 @@ public class ChainManager : MonoBehaviour
             _firstTouchPos = touchPosition;
             _lastChain = _chainsList[_chainsList.Count - 1];
             _chain = Instantiate(_chainPrefab, _lastChain.transform.position, _lastChain.transform.rotation, _chain.transform);
+            if (timerForAudio == 0)
+            {
+                AudioPlayer.instance.PlaySound(setOnePartOfChainAudioClip);
+                timerForAudio = 5;
+            }
+            else
+            {
+                timerForAudio--;
+            }
             _chainsList.Add(_chain);
             _chain.transform.localPosition = new Vector3(0, 0, _chain.transform.localPosition.z + 0.15f);
             var joint = _chain.GetComponent<HingeJoint>();

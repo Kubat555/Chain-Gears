@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public Button rotateButton;
     public static bool isWin;
-    public static bool isTwisted;
+   // public static bool isTwisted;
     public static bool inGame;
 
     public static GameManager Instance;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.OnEndDrawing.AddListener(CheckConnectedChain);
         GlobalEventManager.OnChainBreaks.AddListener(ShowConnectChainText);
         isWin = false;
-        isTwisted = false;
+       // isTwisted = false;
         inGame = false;
         ChainManager.isCollision = false;
         rotateButton.interactable = false;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     }
     public void CheckResults()
     {
-        if (isTwisted || chainManager.gearList.Count < 3 || ChainManager.gameOver)
+        if (ChainManager.twistedChainList.Count>0 || chainManager.gearList.Count < LevelController.Instance.InfoLevels[LevelController.currentLevelIndex].gearsCount || ChainManager.gameOver)
         {
             GlobalEventManager.OnChainBreaks.Invoke();
             rotateButton.interactable = false;
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
         AudioPlayer.instance.PlaySound(loseAudioClip);
         isWin = false;
-        isTwisted = false;
+       // isTwisted = false;
         ChainManager.isCollision = false;
         inGame = false;
     }

@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 4166099686278318446}
   - component: {fileID: 4166099686278318447}
   - component: {fileID: 2367939919714125709}
+  - component: {fileID: 8524985740310894014}
   m_Layer: 0
   m_Name: RightCollider
   m_TagString: RightWay
@@ -247,7 +248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4166099686278318433}
   m_LocalRotation: {x: -0, y: -0.08485043, z: -0, w: 0.99639374}
-  m_LocalPosition: {x: -0.074, y: 0.0005048703, z: -0.026}
+  m_LocalPosition: {x: -0.0506, y: 0.0005048703, z: -0.022}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.12919499}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -265,8 +266,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3858453, y: 1, z: 0.57}
-  m_Center: {x: -0.45117456, y: 0, z: 5.5746074e-10}
+  m_Size: {x: 3.7253299, y: 1, z: 0.57}
+  m_Center: {x: -1.6209152, y: 0, z: -0.00000040907423}
 --- !u!54 &2367939919714125709
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -283,6 +284,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8524985740310894014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4166099686278318433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bf0b36d0122ac4da1c790c76884066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6637766915355562974
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7649557094374106761}
   m_LocalRotation: {x: -0, y: -0.08485043, z: -0, w: 0.99639374}
-  m_LocalPosition: {x: 0.0891, y: 0.0005048703, z: 0.002}
+  m_LocalPosition: {x: 0.0729, y: 0.0005048703, z: -0.0008}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.12919499}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -474,8 +487,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7921882, y: 1, z: 0.124327086}
-  m_Center: {x: 0.3960906, y: 0, z: 0.045820195}
+  m_Size: {x: 2.4517405, y: 1, z: 0.124327056}
+  m_Center: {x: 0.72586596, y: 0, z: 0.045820367}
 --- !u!54 &5958502836427845609
 Rigidbody:
   m_ObjectHideFlags: 0

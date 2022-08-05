@@ -11,6 +11,7 @@ public class LevelController : MonoBehaviour
     public static LevelController Instance;
     public static int currentLevelIndex;
     public int maxLevels{get{return _maxLevelIndex;}}
+    public List<LevelInfo> InfoLevels{get{return levelsInfo;}}
     
     private void Awake() {
         if(Instance == null){

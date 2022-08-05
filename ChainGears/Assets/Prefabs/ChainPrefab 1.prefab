@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 527073873231908947}
   - component: {fileID: 1068016794486716866}
   - component: {fileID: 7497948338116366010}
-  - component: {fileID: 2915243386432542182}
   - component: {fileID: 5939367481014959651}
+  - component: {fileID: 7045421902927346689}
   m_Layer: 0
   m_Name: ChainPrefab 1
   m_TagString: Chain
@@ -89,19 +89,6 @@ HingeJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 18.46
   m_ConnectedMassScale: 11.57
---- !u!65 &2915243386432542182
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114944186031700958}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.13324484, y: 0.2, z: 0.121114805}
-  m_Center: {x: -0.0037512742, y: 0.004158281, z: -0.0022746623}
 --- !u!114 &5939367481014959651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +101,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b68e27f38f3c94aa315449aaaeb51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loseCollide: 0
+--- !u!135 &7045421902927346689
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114944186031700958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6217685886514376372
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,10 +29,10 @@ public class Chain_test : MonoBehaviour
         {
             chainManager.gearList.Add(collision.gameObject);
         }
-        if(gameObject.tag == collision.transform.tag && !ChainManager.twistedChainList.Contains(collision.gameObject) )
+        if(chainManager.chainsList[chainManager.chainsList.Count-1].tag == collision.transform.tag && !ChainManager.twistedChainList.Contains(chainManager.chainsList[chainManager.chainsList.Count-1]) )
         {
-            ChainManager.twistedChainList.Add(collision.gameObject); 
-            GameManager.isTwisted = true; 
+            ChainManager.twistedChainList.Add(chainManager.chainsList[chainManager.chainsList.Count-1]); 
+            //GameManager.isTwisted = true; 
         }
         if(collision.transform.tag == "GameOver"){
             ChainManager.gameOver = true;
@@ -56,11 +56,11 @@ public class Chain_test : MonoBehaviour
         {
             chainManager.gearList.Remove(collision.gameObject);
         }
-        if (gameObject.tag == collision.transform.tag &&  ChainManager.twistedChainList.Contains(collision.gameObject))
+        if (gameObject.tag == collision.transform.tag )
         {
             ChainManager.twistedChainList.Remove(collision.gameObject);
-            if (ChainManager.twistedChainList.Count <= 0)
-                GameManager.isTwisted = false;
+           // if (ChainManager.twistedChainList.Count <= 0)
+            //    GameManager.isTwisted = false;
         }
         if(collision.transform.tag == "GameOver" && ChainManager.gameOverCollideCount > 0){
             ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
@@ -75,10 +75,22 @@ public class Chain_test : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("BeginningOfChain") && ChainManager.Instance.chainsList.Count > 5){
+        if(other.CompareTag("BeginningOfChain") && ChainManager.Instance.chainsList.Count > 5&&!ChainManager.isCollision){
+           // chainManager._chainParent = chainManager._currentParent;
+            Debug.Log("before remove" + chainManager.chainsList.Count);
+            int currentIndex = ChainManager.Instance.chainsList.IndexOf(gameObject);
+
+            if(currentIndex != ChainManager.Instance.chainsList.Count - 1){
+                GameObject gb =  chainManager.chainsList[currentIndex + 1];
+                chainManager.chainsList.RemoveRange(currentIndex + 1, ChainManager.Instance.chainsList.Count - (currentIndex+ 1));
+                Destroy(gb);
+                Debug.Log("after remove" + chainManager.chainsList.Count);
+            }
+            
             chainManager._chainParent.LookAt(other.transform);
-            GetComponent<HingeJoint>().connectedBody = other.GetComponent<Rigidbody>();
+            other.GetComponent<HingeJoint>().connectedBody = GetComponent<Rigidbody>();
             ChainManager.isCollision = true;
+            
         }
     }
 
@@ -93,8 +105,8 @@ public class Chain_test : MonoBehaviour
        Destroy(GetComponent<HingeJoint>());
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-10,10), 0, Random.Range(-10, 10)), ForceMode.Impulse);
-        GetComponent<BoxCollider>().enabled = false;
-       GameManager.isTwisted = false;
+        GetComponent<SphereCollider>().enabled = false;
+      // GameManager.isTwisted = false;
         ChainManager.isCollision = false;
        chainManager.gearList.Clear();
         GameManager.Instance.rotateButton.interactable = false;

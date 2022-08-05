@@ -25,4 +25,4 @@ MonoBehaviour:
   - {x: 6, y: 1.5, z: 6}
   - {x: 4, y: 1.5, z: 4}
   gearsDirection: 010000000100000001000000
-  gearsCount: 0
+  gearsCount: 3

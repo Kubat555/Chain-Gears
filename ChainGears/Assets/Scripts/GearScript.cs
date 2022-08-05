@@ -39,4 +39,6 @@ public class GearScript : MonoBehaviour
     void StopRotate(){
         isRotate = false;
     }
+
+  
 }

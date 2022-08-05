@@ -52,7 +52,14 @@ public class ChainManager : MonoBehaviour
         Vector3 touchPosition;
     private void Update()
     {
+    //     print("COLLISION "+isCollision);
+    //    // print("TWISTED "+GameManager.isTwisted);
+        print("WINZONE "+gearList.Count);
+        print("GEAR "+LevelController.Instance.InfoLevels[LevelController.currentLevelIndex].gearsCount);
+    //     print("DEATHZONE "+gameOverCollideCount);
+    //     print("TWISTED COUNT  "+twistedChainList.Count);
         // print(GameManager.inGame);
+    
         if (GameManager.isWin||!GameManager.inGame  )
             return;
 
@@ -70,7 +77,7 @@ public class ChainManager : MonoBehaviour
                 StartDrawing();
                 
             }
-           else if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.13 && chainsList.Count > 0)
+           else if ( chainsList.Count > 0)
             {
                 Drawing(raycastHit); 
                 GameManager.Instance.rotateButton.interactable = true;
@@ -90,6 +97,7 @@ public class ChainManager : MonoBehaviour
             chainsList.Clear();
             _chainParent = _currentParent;
             chainParentList.Clear();
+            twistedChainList.Clear();
 
         }
         if (Input.GetKey (KeyCode.A))
@@ -117,7 +125,7 @@ public class ChainManager : MonoBehaviour
 
     private void Drawing(RaycastHit raycastHit)
     {
-        if (raycastHit.collider.tag != "Chain")
+        if (Vector3.Distance(_firstTouchPos, _currentTouchPos)>=.13 &&raycastHit.collider.tag != "Chain")
         {
             _firstTouchPos = touchPosition;
             _lastChain = chainsList[chainsList.Count - 1];
@@ -136,13 +144,14 @@ public class ChainManager : MonoBehaviour
             var joint = _chain.GetComponent<HingeJoint>();
             joint.connectedBody = _lastChain.GetComponent<Rigidbody>();
         }
-        else if (raycastHit.collider.tag == "Chain" && chainsList.Count > 1)
+        else if (Vector3.Distance(_chainParent.position, _chain.transform.position)-Vector3.Distance(_chainParent.position,_currentTouchPos)>0.15 && chainsList.Count > 1)
         {
             if(_chain.GetComponent<Chain_test>().loseCollide){
                 ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
             }
             Destroy(_chain);
             chainParentList.Remove(_chain.transform);
+            twistedChainList.Remove(_chain);
             if(chainParentList.Count>1)
                 _chainParent = chainParentList[chainParentList.Count-1];
             else
@@ -161,7 +170,8 @@ public class ChainManager : MonoBehaviour
             _chainParent.transform.localRotation = Quaternion.identity;
             chainParentList.Remove(_chainParent);
             _chainParent = chainParentList[chainParentList.Count - 1].transform;
-            _chainParent.transform.localRotation = Quaternion.identity;
+            _chainParent.LookAt(_currentTouchPos);
+            //_chainParent.transform.localRotation = Quaternion.identity;
         }
     }
      

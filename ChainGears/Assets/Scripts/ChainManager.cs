@@ -149,17 +149,22 @@ public class ChainManager : MonoBehaviour
             if(_chain.GetComponent<Chain_test>().loseCollide){
                 ChainManager.gameOverCollideCount = Mathf.Clamp(ChainManager.gameOverCollideCount - 1, 0, 100);
             }
-            Destroy(_chain);
-            chainParentList.Remove(_chain.transform);
-            twistedChainList.Remove(_chain);
-            if(chainParentList.Count>1)
-                _chainParent = chainParentList[chainParentList.Count-1];
-            else
-                _chainParent = _currentParent;
-            chainsList.RemoveAt(chainsList.Count - 1);
-            _chain = chainsList[chainsList.Count - 1]; ;
-            _firstTouchPos = _chain.transform.position;
+            RemoveLastChain();
         }
+    }
+
+    public void RemoveLastChain()
+    {
+        Destroy(_chain);
+        chainParentList.Remove(_chain.transform);
+        twistedChainList.Remove(_chain);
+        if (chainParentList.Count > 1)
+            _chainParent = chainParentList[chainParentList.Count - 1];
+        else
+            _chainParent = _currentParent;
+        chainsList.RemoveAt(chainsList.Count - 1);
+        _chain = chainsList[chainsList.Count - 1]; 
+        _firstTouchPos = _chain.transform.position;
     }
 
     private void RemoveParent()

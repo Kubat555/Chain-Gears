@@ -12,6 +12,7 @@ TagManager:
   - RightWay
   - StartZone
   - GameOver
+  - CenterOfGear
   layers:
   - Default
   - TransparentFX

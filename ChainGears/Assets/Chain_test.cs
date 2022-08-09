@@ -15,11 +15,17 @@ public class Chain_test : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     { 
         if(collision.transform.tag == "Gear")
-        { 
+        {
             chainManager._chainParent = transform;
-            GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0); 
-            if(!ChainManager.chainParentList.Contains(this.transform))
-            ChainManager.chainParentList.Add(this.transform);
+            GetComponent<HingeJoint>().axis = new Vector3(0, 1, 0);
+            if (!ChainManager.chainParentList.Contains(this.transform))
+                ChainManager.chainParentList.Add(this.transform);
+        }
+
+        if(collision.transform.tag == "CenterOfGear")
+        {
+            chainManager.RemoveLastChain();
+
         }
         if(collision.transform.tag == "BeginningOfChain")
         {

@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
             AudioPlayer.instance.PlaySound(chainBreaksAudioClip);
             ChainManager.gameOver = false;
             ChainManager.gameOverCollideCount = 0;
+            ChainManager.twistedChainList.Clear();
         }
         else
         {

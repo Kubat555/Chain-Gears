@@ -57,7 +57,7 @@ public class ChainManager : MonoBehaviour
         print("WINZONE "+gearList.Count);
         print("GEAR "+LevelController.Instance.InfoLevels[LevelController.currentLevelIndex].gearsCount);
     //     print("DEATHZONE "+gameOverCollideCount);
-    //     print("TWISTED COUNT  "+twistedChainList.Count);
+         print("TWISTED COUNT  "+twistedChainList.Count);
         // print(GameManager.inGame);
     
         if (GameManager.isWin||!GameManager.inGame  )
@@ -97,7 +97,7 @@ public class ChainManager : MonoBehaviour
             chainsList.Clear();
             _chainParent = _currentParent;
             chainParentList.Clear();
-            twistedChainList.Clear();
+          
 
         }
         if (Input.GetKey (KeyCode.A))

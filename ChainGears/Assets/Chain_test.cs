@@ -29,7 +29,7 @@ public class Chain_test : MonoBehaviour
         {
             chainManager.gearList.Add(collision.gameObject);
         }
-        if(chainManager.chainsList[chainManager.chainsList.Count-1].tag == collision.transform.tag && !ChainManager.twistedChainList.Contains(chainManager.chainsList[chainManager.chainsList.Count-1]) )
+        if(!ChainManager.isCollision && chainManager.chainsList[chainManager.chainsList.Count-1].tag == collision.transform.tag && !ChainManager.twistedChainList.Contains(chainManager.chainsList[chainManager.chainsList.Count-1]) )
         {
             ChainManager.twistedChainList.Add(chainManager.chainsList[chainManager.chainsList.Count-1]); 
             //GameManager.isTwisted = true; 
@@ -82,7 +82,7 @@ public class Chain_test : MonoBehaviour
 
             if(currentIndex != ChainManager.Instance.chainsList.Count - 1){
                 GameObject gb =  chainManager.chainsList[currentIndex + 1];
-                chainManager.chainsList.RemoveRange(currentIndex + 1, ChainManager.Instance.chainsList.Count - (currentIndex+ 1));
+                chainManager.chainsList.RemoveRange(currentIndex + 1, ChainManager.Instance.chainsList.Count - (currentIndex+ 1)); 
                 Destroy(gb);
                 Debug.Log("after remove" + chainManager.chainsList.Count);
             }
